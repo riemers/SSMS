@@ -1,0 +1,12 @@
+SSMS - Sourcemod Server Management System
+
+Uploaded first batch of the tool, its still packed with bugs features and things to do but at least others can now
+also take a look at it and maybe improve it since i dont always have to time to do so.
+
+Install -
+
+Copy over all the files to your folder, update the config.php to fit your needs (dont fill in what you dont have/need)
+You can import your servers if you have them in hlstats or just use the gui to do a addserver in the start (might behave
+a bit badly with no servers in it)
+
+Also create a database and insert the ssms.sql file found in the repository root too.
