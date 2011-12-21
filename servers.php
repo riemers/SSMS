@@ -161,8 +161,6 @@
 				// no longer needed, since we just want it to continue
 			}
 
-print_r($info);
-			
 			if( $info && $info['serverName'] ) {
 
 				$network = $info['networkVersion'];

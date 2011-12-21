@@ -2,6 +2,7 @@
 
 include("config.php");
 include("lib/functions.php");
+require_once 'lib/steam-condenser.php';
 
 $start = head();
 
@@ -28,8 +29,8 @@ if ($status == "verify") {
 		bottom($start);
 		die();
     }
-    require_once('scripts/source_query.php');
-	$server = new Source_Query($ip, $port);
+//    require_once('scripts/source_query.php');
+	$server = new SourceServer($ip, $port);
 	$info   = $server->GetInfo();
 	if (!$info['name']) {
 		echo '<b> There is a error with the information you supplied, please go back and verify.</b>';
