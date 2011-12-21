@@ -1,0 +1,193 @@
+/* CSS file for PMS
+Created by matergames AKA Smokin' JoJo Davis
+http://noova.pl
+*/
+body{
+background:url('../images/mainbg.gif');
+}
+img{
+    border:0px;
+}
+a{
+    color:#073257;
+    text-decoration: none;
+}
+a:hover{
+    color:#570707;
+}
+#mainwrapper{
+width:95%;margin:auto;
+}
+#badge{
+    position:fixed;
+    right:0px;
+    border:0px;
+    display:block;
+    width:39px;
+    height:38px;
+    background:url('../images/badge.png');
+}
+#badge:hover{
+   background:url('../images/badge_h.png');
+}
+#bar
+{
+    margin-top:20px;height:33px;width:100%;background:url('../images/bar.png') repeat-x;position:relative;
+}
+#content{
+width:99%;
+background:#c8c8c8;
+margin:auto;
+position:relative;
+}
+#content-wrapper{
+    padding:20px;
+	font-family: arial, helvetica,sans-serif;
+    font-size:13px;
+    line-height:20px;
+    color:#3d3d3d;
+	overflow: auto;
+}
+#footer{
+position:relative;
+margin:auto;
+width:99%;
+height:5px;
+background:url('../images/shadow_bottom.png') repeat-x;
+}
+.bar_text {
+    float:left;
+	font-size:15px;
+    padding-top:7px;
+    padding-left:20px;
+	color:black;
+
+}
+.bar_text_right {
+    float:right;
+	font-size:13px;
+    padding-top:7px;
+    padding-right:20px;
+	color:#ffffff;
+}
+.bar_text_right a{
+	font-family: arial, helvetica,sans-serif;
+	font-size:13px;
+    color:#ffffff;
+}
+.bar_text a{
+	font-family: arial, helvetica,sans-serif;
+	font-size:13px;
+	color:white;
+	}
+.bar_text_right a:hover{
+    color:#efd4d4;
+}
+#shadow_left{
+    float:left;
+    background:url('../images/shadow_side.png') repeat-y;
+    height:100%;
+    width:5px;
+    position:absolute;
+    left:0px;
+}
+#shadow_right{
+    float:left;
+    background:url('../images/shadow_side.png') repeat-y;
+    height:100%;
+    width:5px;
+    position:absolute;
+    right:0px;
+}
+.listtable{
+	font-size:13px;
+    border:1px solid #808080;
+     border-collapse:collapse;
+     margin:auto;
+}
+.listtable td{
+    border:1px solid #808080;
+    padding-left:5px;
+    padding-right:5px;
+}
+.link:hover {
+	cursor: pointer;
+}
+
+#terminal {
+
+	height: 300px;
+	border: 1px solid #808080;
+	width: 100%;
+	overflow: auto;
+	
+}
+
+#snames {
+	
+	margin-top: 5px;
+	margin-bottom: 5px;
+	height: 100px;
+	overflow-y: scroll;
+	
+}
+
+
+.logframe {
+	
+	display: none;
+	width: 100%;
+	height: 300px;
+	border: 1px solid black;
+	background-color: white;
+	
+}
+
+#popup {
+
+	display: none;
+	border: 1px solid #808080;
+	background-color: #b8b8b8;
+	z-index: 1;
+	
+}
+
+.addServer {
+
+	padding: 20px;
+	margin-left: -85px;
+	width: 170px;
+	position: fixed;
+	top: 30%;
+	left: 50%;
+	line-height: 180%;
+	
+}
+#tooltip, #tooltiptext {
+	position:absolute;
+	background:#525252;
+	font-size:13px;
+	padding:10px;
+	display:none;
+	color:#fff;
+	font-family: arial, helvetica,sans-serif;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	font-weight:bold;
+}
+
+tr.elements:nth-child(even) {background: #c8c8c8;}
+tr.elements:nth-child(odd) {background: #bbbbbb;}
+
+tr.elements:hover {
+background-color:yellow;
+}
+tr.headers {
+background-color:#999999;
+}
+td.adheaders{
+background-color:#999999;
+color: #073257;
+}

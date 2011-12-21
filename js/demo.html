@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>JQuery Tablify - Demo</title>
+	<script src="jquery.js"></script>
+    <script src="jquery.tablify.js"></script>
+	<script src="jquery.tablify.ext.js"></script>
+	<script>
+$(document).ready(function(){
+    $(".style_0").tablify(0);
+	$(".style_1").tablify(1);
+	$(".style_2").tablify(2);
+	// Extensions
+	$(".minimalist").tablify("minimalist");
+	$(".clear").tablify("clear");
+	$(".box").tablify("box");
+	$(".newspaper").tablify("newspaper");
+	$(".greenlife").tablify("greenlife");
+	$(".seaglass").tablify("seaglass");
+});
+	</script>
+</head>
+
+<body>
+<style>
+.header{
+    background:black;color:white;
+	font-family:verdana;font-size:11px;
+	font-weight:bold;padding:10px;
+}
+</style>
+<table>
+<tr>
+        <td class="header">Ext. GreenLife with Header</td>
+        <td class="header">Ext. GreenLife without Header</td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+<!-- START: Extension Seaglass with header -->
+<table class="seaglass" width="300" cellspacing="0">
+    <tr><th width="200">Employee</th><th>Sallary</th><th>Bonus</th></tr>
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Seaglass with header -->
+		</td>
+        <td align="center" valign="top">
+<!-- START: Extension SeaGlass without header -->
+<table class="seaglass" width="300" cellspacing="0">
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension SeaGlass without header -->
+		</td>
+    </tr>
+    <tr>
+        <td class="header">Ext. GreenLife with Header</td>
+        <td class="header">Ext. GreenLife without Header</td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+<!-- START: Extension Newspaper with header -->
+<table class="greenlife" width="300" cellspacing="0">
+    <tr><th width="200">EMPLOYEE</th><th>SALLARY</th><th>BONUS</th></tr>
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Newspaper with header -->
+		</td>
+        <td align="center" valign="top">
+<!-- START: Extension GreenLife without header -->
+<table class="greenlife" width="300" cellspacing="0">
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension GreenLife without header -->
+		</td>
+    </tr>
+    <tr>
+        <td class="header">Ext. Newspaper with Header</td>
+        <td class="header">Ext. Newspaper without Header</td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+<!-- START: Extension Newspaper with header -->
+<table class="newspaper" width="300" cellspacing="0">
+    <tr><th width="200">Employee</th><th>Sallary</th><th>Bonus</th></tr>
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Newspaper with header -->
+		</td>
+        <td align="center" valign="top">
+<!-- START: Extension Newspaper without header -->
+<table class="newspaper" width="300" cellspacing="0">
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Newspaper without header -->
+		</td>
+    </tr>
+    <tr>
+        <td class="header">Ext. Box with Header</td>
+        <td class="header">Ext. Box without Header</td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+<!-- START: Extension Box with header -->
+<table class="box" width="300" cellspacing="0">
+    <tr><th width="200">Employee</th><th>Sallary</th><th>Bonus</th></tr>
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Box with header -->
+		</td>
+        <td align="center" valign="top">
+<!-- START: Extension Box without header -->
+<table class="box" width="300" cellspacing="0">
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Box without header -->
+		</td>
+    </tr>
+    <tr>
+        <td class="header">Ext. Clear with Header</td>
+        <td class="header">Ext. Clear without Header</td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+<!-- START: Extension Clear with header -->
+<table class="clear" width="300" cellspacing="0">
+    <tr><th width="200">Employee</th><th>Sallary</th><th>Bonus</th></tr>
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Clear with header -->
+		</td>
+        <td align="center" valign="top">
+<!-- START: Extension Clear without header -->
+<table class="clear" width="300" cellspacing="0">
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Clear without header -->
+		</td>
+    </tr>
+    <tr>
+        <td class="header">Ext. Minimalist with Header</td>
+        <td class="header">Ext. Minimalist without Header</td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+<!-- START: Extension Minimalist with header -->
+<table class="minimalist" width="300" cellspacing="0">
+    <tr><th width="200">Employee</th><th>Sallary</th><th>Bonus</th></tr>
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Minimalist with header -->
+		</td>
+        <td align="center" valign="top">
+<!-- START: Extension Minimalist without header -->
+<table class="minimalist" width="300" cellspacing="0">
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Extension Minimalist without header -->
+		</td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td class="header">Default Style with Header</td>
+        <td class="header">Default Style without Header</td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+<!-- START: Style 0 with header -->
+<table class="style_0"  width="300" cellspacing="0">
+    <tr><th width="200">Employee</th><th>Sallary</th><th>Bonus</th></tr>
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Style 0 with header -->
+		</td>
+        <td align="center" valign="top">
+<!-- START: Style 0 without header -->
+<table class="style_0"  width="300" cellspacing="0">
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Style 0 without header -->
+		</td>
+    </tr>
+    <tr>
+        <td class="header">Style 1 with Header</td>
+        <td class="header">Style 1 without Header</td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+<!-- START: Style 1 with header -->
+<table class="style_1"  width="300" cellspacing="0">
+    <tr><th width="200">Employee</th><th>Sallary</th><th>Bonus</th></tr>    
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Style 1 with header -->
+		</td>
+        <td align="center" valign="top">
+<!-- START: Style 1 without header -->
+<table class="style_1"  width="300" cellspacing="0">
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Style 1 without header -->
+		</td>
+    </tr>
+    <tr>
+        <td class="header">Style 2 with Header</td>
+        <td class="header">Style 2 without Header</td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+<!-- START: Style 2 with header -->
+<table class="style_2"  width="300" cellspacing="0">
+    <tr><th width="200">Employee</th><th>Sallary</th><th>Bonus</th></tr>    
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Style 2 with header -->
+		</td>
+        <td align="center" valign="top">
+<!-- START: Style 2 without header -->
+<table class="style_2"  width="300" cellspacing="0">
+    <tr><td>Claris F. Sanches</td><td>$1500</td><td>$50</td></tr>
+	<tr><td>Marry A. Popins</td><td>$2500</td><td>$150</td></tr>
+	<tr><td>Mona A. Liza</td><td>$1800</td><td>$20</td></tr>
+	<tr><td>Sienna D. Ferguson</td><td>$1300</td><td>$150</td></tr>
+</table>
+<!-- END: Style 2 without header -->
+		</td>
+    </tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+select address, port, rcon_password from hlstats_Servers;
+  ^put above line in a file called "dump".. then run this:
+
+mysql -u <youruserid> <yourhlstatsdatabasename> -h <yourhostname> -p < dump|grep -v address|while read ip port rconpass; do echo INSERT INTO servers \(ip, port, rconpass\) values\(\'$ip\',\'$port\',\'$rconpass\'\)\;; done >> output
+
+then you can import the output query's into your db using phpmyadmin or something like that, sure it can be easier but hey..

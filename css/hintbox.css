@@ -1,0 +1,47 @@
+/* All form elements are within the definition list for this example */
+dl {
+        font:normal 12px/15px Arial;
+    position: relative;
+    width: 350px;
+}
+dt {
+    clear: both;
+    float:left;
+    width: 130px;
+    padding: 4px 0 2px 0;
+    text-align: left;
+}
+dd {
+    float: left;
+    width: 200px;
+    margin: 0 0 8px 0;
+    padding-left: 6px;
+}
+
+
+/* The hint to Hide and Show */
+.hint {
+        display: none;
+    position: absolute;
+    right: -250px;
+    width: 200px;
+    margin-top: -4px;
+    border: 1px solid #c93;
+    padding: 10px 12px;
+    /* to fix IE6, I can't just declare a background-color,
+    I must do a bg image, too!  So I'm duplicating the pointer.gif
+    image, and positioning it so that it doesn't show up
+    within the box */
+    background: #ffc url(../images/pointer.gif) no-repeat -10px 5px;
+}
+
+/* The pointer image is hadded by using another span */
+.hint .hint-pointer {
+    position: absolute;
+    left: -10px;
+    top: 5px;
+    width: 10px;
+    height: 19px;
+    background: url(../images/pointer.gif) left top no-repeat;
+}
+
