@@ -19,8 +19,6 @@
         $servercfg = $servercfg['0'];
 
 		
-		//include( "scripts/rcon_code.php" ); # Source RCON by William Ruckman (http://ruckman.net)
-		//$srcds_rcon = new srcds_rcon();
 		$serverIP = $servercfg['ip'];
 		$server = new SourceServer($serverIP, $servercfg['port']);
 
