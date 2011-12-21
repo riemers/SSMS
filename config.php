@@ -3,7 +3,7 @@
 	$host = "changeme";
 	$user = "changeme";
 	$pass = "changeme";
-	$table = "changeme";
+	$table = "changeme2";
 	
 	// default prefix to cut down on long names
 	$server_prefix = "[EU] Lethal-Zone.eu";
