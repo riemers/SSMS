@@ -4,7 +4,17 @@
 	include("lib/functions.php");
 	require_once 'lib/steam-condenser.php';
 	
-	
+        define("CLI", !isset($_SERVER['HTTP_USER_AGENT']));
+        function mysql_query_trace($query) {
+            /*$trace = debug_backtrace();
+            echo __FILE__ .' '. $trace[count($trace) - 1]['line'] .': MySQL-query: '. $query;
+            if (defined("CLI"))
+                echo "\r\n";
+            else
+                echo "<br />";*/
+            
+            return mysql_query($query);
+        }
 	if(isset($_SERVER['argc'])) $args = getopt("u");
 	if (!$args) { $start = head(); }
 	
@@ -35,7 +45,7 @@
 			return false;
 		}
 		
-		if( mysql_query( "INSERT INTO servers ( ip, port, rconpass ) VALUES( '$ip','$port','$rcon' )" ) )
+		if( mysql_query_trace( "INSERT INTO servers ( ip, port, rconpass ) VALUES( '$ip','$port','$rcon' )" ) )
 			renewserver( mysql_insert_id() );
 		else
 			echo "<script type=\"text/javascript\">
@@ -45,8 +55,8 @@
 	}
 	
 	function deleteserver( $serverid ) {
-		mysql_query( "DELETE FROM `servers` WHERE `servers`.`serverid` = " . $serverid . " LIMIT 1" );
-		mysql_query( "DELETE FROM `srv_mods` WHERE `srv_mods`.`serverid` = " . $serverid );
+		mysql_query_trace( "DELETE FROM `servers` WHERE `servers`.`serverid` = " . $serverid . " LIMIT 1" );
+		mysql_query_trace( "DELETE FROM `srv_mods` WHERE `srv_mods`.`serverid` = " . $serverid );
 	}
 	
 	function checkversion() {
@@ -95,7 +105,7 @@
 	                $response = $reply[0]->getMessage(); // see reply of version..
 	//				print_r($response);
 	                if ($response == "Your server is out of date, please upgrade") {
-	                        mysql_query( "UPDATE games SET expired='yes' WHERE shortname = '$game'");
+	                        mysql_query_trace( "UPDATE games SET expired='yes' WHERE shortname = '$game'");
 							if ($settings['useemail']['config'] == 'yes') {
 								$subject = "A update for $longname seems to be out, go check out the buzz...";
 								$newstuff = getupdates($appid,'last');
@@ -142,7 +152,7 @@
 		//else { $game = '%'; }
 		$fails = array();
 		
-		$result = mysql_query( "SELECT * from servers where serverid like '$server' and type like '" . $_GET[ 'game' ]  . "'" ) or die(mysql_error());
+		$result = mysql_query_trace( "SELECT * from servers where serverid like '$server' and type like '" . $_GET[ 'game' ]  . "'" ) or die(mysql_error());
 		while( $row = mysql_fetch_array( $result ) ) {
 			
 			foreach ( $row as $key => $value ){
@@ -201,7 +211,7 @@
 				if ($gametypes[$type]['expired'] == "yes" ) {
 					if (version_compare( $version, $gametypes[$type]['version'], '>' )) {
 						// if something was expired, check to see if a server has a newer version. If yes update version in games db and set expired to no.
-						mysql_query("UPDATE games SET version='$version', expired='no' WHERE shortname='$type'") ;
+						mysql_query_trace("UPDATE games SET version='$version', expired='no' WHERE shortname='$type'") ;
 						// reset so it wont go restart if valve has the coffee break.
 						$gametypes[$type]['expired'] = "no";
 					}
@@ -209,8 +219,8 @@
 
 				if ($restartsend == 'yes' || $restartsend == 'restart'  || $restartsend == 'optional') {
 					// this is set after a _restart, so if we see it , then server is restarted and need to set restartsend=no.
-					if ($goingdown != 'yes') { 
-						mysql_query("UPDATE servers SET restartsend='no' WHERE serverid = '$serverid'") ;
+					if ($goingdown == 'no') { 
+                    mysql_query_trace("UPDATE servers SET restartsend='no' WHERE serverid = '$serverid'") ;
 					} else {
 								if ( $type == "left4dead" || $type == "left4dead2" ) { 
 									// hate to do this part, but if the last 'fork' is restarted, it can all be up within a minute. So the fork responded normally
@@ -221,15 +231,19 @@
 									$pieces[1] = trim($pieces[1]);
 									$morepieces = preg_split('/[\s]+/', $pieces[1]);
 									$uptime = $morepieces[3];
+
+									echo "Hey we zijn er";
+									echo "uptime is $uptime";
 									// can be buggy too, if you shutdown it quickly again and then servers are still full, it would make them optional again and send them into download state
 									// need a better way for this.
 									if ( $uptime < "2") { 
-                                        // if its up this short it restarted shortly ago, so reset it for this one.
-										mysql_query("UPDATE servers SET restartsend='no',goingdown='no' WHERE serverid = '$serverid'");
+                                        					// if its up this short it restarted shortly ago, so reset it for this one.
+										echo "Resetting all forks to normal since 1 servers has low uptime";
+										mysql_query_trace("UPDATE servers SET restartsend='no',goingdown='no' WHERE netconport = '$netconport'");
 									}
 								} 		
 								if ( $restartsend == 'restart') {
-									 mysql_query("UPDATE servers SET restartsend='no' WHERE serverid = '$serverid'") ;
+									 mysql_query_trace("UPDATE servers SET restartsend='no' WHERE serverid = '$serverid'") ;
 								}
 					}
 				}
@@ -254,9 +268,9 @@
 								// trigger the optional restarts to show as normal restarts instead of downloading.
 								if ($goingdown == "yes") { 
 								// do the update here, since after a _restart it throws a exception and wont update the DB otherwise.
-									mysql_query("UPDATE servers SET restartsend='restart',goingdown='no',cmdtosend='normal' WHERE serverid = '$serverid'");
+									mysql_query_trace("UPDATE servers SET restartsend='restart',goingdown='no',cmdtosend='normal' WHERE serverid = '$serverid'");
 								} else {
-									mysql_query("UPDATE servers SET restartsend='yes',cmdtosend='normal' WHERE serverid = '$serverid'");
+									mysql_query_trace("UPDATE servers SET restartsend='yes',cmdtosend='normal' WHERE serverid = '$serverid'");
 								}
 							next;
 						} else { 	
@@ -266,13 +280,13 @@
 									if(!$usenet) { 
                                         // to make sure they dont stay in "update" state, or we get 2x a restart of netcon!
                                         // pretty pointless in the end, since netcon port is down = all is down.
-                                        // mysql_query("UPDATE servers SET restartsend='optional' WHERE netconport = '$netconport'");
+                                        // mysql_query_trace("UPDATE servers SET restartsend='optional' WHERE netconport = '$netconport'");
 										next;
 									} else {
 										$netconding = $settings['netconrestart']['config'];
 										fputs ($usenet, "PASS $netconpasswd\r\n");
 										fputs ($usenet, "$netconding\r\n");
-										mysql_query("UPDATE servers SET restartsend='yes',goingdown='yes' WHERE netconport = '$netconport'");
+										mysql_query_trace("UPDATE servers SET restartsend='yes',goingdown='yes' WHERE netconport = '$netconport'");
 										$netforkrestart[$netconport]="yes";
 									}
 								}
@@ -295,7 +309,7 @@
                                  $server->rconAuth($rconpass);
                                  $server->rconExec($settings['defaultannounce']['config']);
 								 echo 'fout update kwam uit';
-							     mysql_query("UPDATE servers SET restartsend='update' WHERE serverid = '$serverid'");
+							     mysql_query_trace("UPDATE servers SET restartsend='update' WHERE serverid = '$serverid'");
                               } catch (RCONNoAuthException $e) {
                                     //trigger_error('Could not authenticate with the game server.',E_USER_ERROR);
 									echo 'error kan niet rconnen boeien, verder gaan';
@@ -311,11 +325,11 @@
 										$announcing = $settings['defaultannounce']['config'];
 										fputs ($usenet, "PASS $netconpasswd\r\n");
 										fputs ($usenet, "$announcing\r\n");
-										mysql_query("UPDATE servers SET restartsend='update' WHERE serverid = '$serverid'");
+										mysql_query_trace("UPDATE servers SET restartsend='update' WHERE serverid = '$serverid'");
 										$netforkupdate[$neGotconport]="yes";
 									}
 								} else { // since a broadcast is send, all the other nodes dont need to have this send out again.
-									mysql_query("UPDATE servers SET restartsend='update' WHERE serverid = '$serverid'");
+									mysql_query_trace("UPDATE servers SET restartsend='update' WHERE serverid = '$serverid'");
 							    }
 							}
 						}
@@ -334,14 +348,20 @@
 					//		$server->rconAuth($rconpass);
 					//		$server->rconExec($dlycmd);
 					//	} catch(Exception $e) {}
-						mysql_query("UPDATE servers SET restartsend='optional',goingdown='yes' WHERE serverid = '$serverid'");
+						mysql_query_trace("UPDATE servers SET restartsend='optional',goingdown='yes' WHERE serverid = '$serverid'");
 					}
-					if ($restartsend == "optional") {
+					if ($restartsend == "optional" && $goingdown == "yes" ) {
 						// check number of players online, if less it meets min players then go
 						if ($playercount <= $dlyusers || $dlyusers = "NULL") {
 						echo "ja dat klopt, we zitten onder de 10";
 						// add new field in db, to say it was a daily 
-						mysql_query("UPDATE servers SET restartsend='update', cmdtosend='daily' WHERE serverid = '$serverid'");
+							// add this part to not make l4d2 forks in update mode.
+							//if ($goingdown != 'yes' ) {
+                                echo "set update en daily\n";
+                                if (!$netconport) {
+                                    mysql_query_trace("UPDATE servers SET restartsend='update', cmdtosend='daily' WHERE serverid = '$serverid'");
+                                }
+							//}
 						}
 					}
 					if ($restartsend == "emptyserver") {
@@ -349,17 +369,17 @@
 						if ($playercount == '0' ) {
 						echo "ja dat klopt, we zitten onder de 10";
 						// add new field in db, to say it was a daily 
-						mysql_query("UPDATE servers SET restartsend='update', cmdtosend='normal' WHERE serverid = '$serverid'");
+						mysql_query_trace("UPDATE servers SET restartsend='update', cmdtosend='normal' WHERE serverid = '$serverid'");
 						}
 					}
 				}
 				
 					// we are going to check for the daily time 
 					
-				mysql_query("UPDATE servers SET servername = '$servername', type = '$type', version = '$version', network = '$network', os = '$os', lastupdate = NOW(), currentmap = '$map', currentplayers = '$nplayers', maxplayers = '$mplayers', retries = '$retries', currentbots = '$bots', protected = '$protected' WHERE serverid = '$serverid'");
+				mysql_query_trace("UPDATE servers SET servername = '$servername', type = '$type', version = '$version', network = '$network', os = '$os', lastupdate = NOW(), currentmap = '$map', currentplayers = '$nplayers', maxplayers = '$mplayers', retries = '$retries', currentbots = '$bots', protected = '$protected' WHERE serverid = '$serverid'");
 			} else	{
 				if ( $goingdown == 'yes' && $restartsend != 'emptyserver' ) { 
-					mysql_query("UPDATE servers SET restartsend='optional',goingdown='no' WHERE serverid = '$serverid'");
+					mysql_query_trace("UPDATE servers SET restartsend='optional',goingdown='no' WHERE serverid = '$serverid'");
 				}
 				if ( $restartsend == 'no' ) {
 					$fails[] = $serverid;
@@ -380,7 +400,7 @@
 						}
 					} catch (Exception $e) {}
 					}
-					if ( !$_GET['update'] == 'all') { mysql_query( "UPDATE servers SET retries=retries+1  WHERE serverid = '$serverid'");}
+					if ( !$_GET['update'] == 'all') { mysql_query_trace( "UPDATE servers SET retries=retries+1  WHERE serverid = '$serverid'");}
 					// so that web updates for all dont screw up the retry count. Assuming people run the php in cron.
 				}  
 			}
@@ -495,7 +515,7 @@ echo "<br/><br/>";
 	echo "<td><a href=\"javascript:void(0);\" onclick=\"if( confirm('Are you sure you want to refresh all the servers?') ) document.location='?$strgame\update=all';\" >Quick Tools</a></td>\n";
 	echo "</tr>\n";
 
-	$result = mysql_query( "SELECT * from servers where type like '" . $_GET[ 'game' ] . "' ORDER BY " . $sort . ( !empty( $desc ) ? '' : ' DESC' ) ) or die(mysql_error());
+	$result = mysql_query_trace( "SELECT * from servers where type like '" . $_GET[ 'game' ] . "' ORDER BY " . $sort . ( !empty( $desc ) ? '' : ' DESC' ) ) or die(mysql_error());
 	$num_rows = mysql_num_rows($result);
 	while($row = mysql_fetch_array( $result )) {
 		foreach ($row as $key => $value) {
@@ -539,7 +559,14 @@ echo "<br/><br/>";
 		
 		}
 			
-		echo "  <td width=\"60\" nowrap=\"nowrap\"><a style=\"cursor:pointer;cursor:hand\" class=\"tooltiptext\" onclick=" . setwindow("players.php?serverid=$serverid","$currentplayers players/bots active on $servername") . 
+                $playersColor = '#390';
+		if ($currentplayers >= $maxplayers) {
+			$playersColor = '#f00';
+		} elseif ($currentplayers / $maxplayers < 0.25) {
+			$playersColor = '#f60';
+		}
+                
+		echo "  <td width=\"60\" nowrap=\"nowrap\"><a style=\"cursor:pointer;cursor:hand;color:$playersColor\" class=\"tooltiptext\" onclick=" . setwindow("players.php?serverid=$serverid","$currentplayers players/bots active on $servername") . 
 		"title=\"$currentplayers players of the maximum $maxplayers are online <br />";
 		if ( $currentbots > 0 ) { echo " of which $currentbots are bot(s)"; } 
 		echo "\">$currentplayers";

@@ -22,7 +22,11 @@ ini_set("display_errors", 1);
 
 $ipAddress = $ip;
 $server = new SourceServer($ipAddress, $portNumber);
-$server->rconAuth($rconpass);
+try {
+    $server->rconAuth($rconpass);
+} catch (Exception $e) {
+    echo 'Server unreachable.'; exit;
+}
 
 if ($_GET['maps'] == "changelevel") {
 	try {

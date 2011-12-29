@@ -38,7 +38,11 @@ tr.d1 td {
 $ipAddress = $ip;
 $server = new SourceServer($ipAddress, $portNumber);
 echo '<link rel="stylesheet" href="css/main.css">';
-$players = $server->getPlayers($rconpass);
+try {
+    $players = $server->getPlayers($rconpass);
+} catch (Exception $e) {
+    echo 'Server unreachable.'; exit;
+}
 if (empty($players)) { echo 'No active players found on server'; exit;} 
 
         if ($settings['usestats']['config'] == 'yes') {
@@ -50,7 +54,8 @@ echo "<table>";
 echo "<tr bgcolor=FF8C00><th width=14%>Name</th><th width=25%>Score</th><th width=14%>Ping</th><th width=14%>steamid</th><th width=14%>connect time</th><th width=14%>state</th><th width=14%>ip</th></tr>";
 $i=0;
 foreach($players as $player) {
-	$statsinfo[2] = $player->getsteamid();
+        $steamid = $player->getsteamid();
+	$statsinfo[2] = $steamid;
 	$name = $player->getName();
 	if ($i%2 == 0) { echo "<tr class=d0>"; $i++; }
 	else { echo "<tr class=d1>"; $i++; }
@@ -64,7 +69,7 @@ else { echo "<td>{$player->getName()}" . getstatsurl($statsinfo) . "</td>"; }
     catch(Exception $e) {
 	$profile = 'ERROR'; 
     }
-    $steamid = $player->getsteamid();
+//    $steamid = $player->getsteamid();
     echo "<td><a href=\"http://steamcommunity.com/profiles/$profile\" title=\"$name\" target=_blank>$steamid</a></td>";
 
     $seconds=$player->getconnectTime();

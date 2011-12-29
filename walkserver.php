@@ -28,12 +28,13 @@
 	function trimv(&$val){return $val = trim($val);}
 	
 	function go($data,$type,$number,$serverid) {
-		global $table, $fp;
+		global $table, $fp, $global, $errors;
+               
 		
 		$pluginInfo = array( 'Timestamp' => '', 'URL' => '', 'Author' => '' );
 		
 		// get the mod information
-		$is_error = strpos($data,'Load error:');
+		$is_error = strpos($data,'Load error:') !== FALSE;
 		// split up the lines
 		$mparray = explode("\n",$data);
 		// trim white spaces in beginning
@@ -42,18 +43,21 @@
 		//array_pop($mparray);
 		// check for errors , wrong loading mods, take them out
 		foreach($mparray as $string) {
-		$string = mysql_real_escape_string($string);
+                    $string = mysql_real_escape_string($string);
 
-		// get the first name, and the data after that
+                    // get the first name, and the data after that
 			$pos = strpos($string,':');        
-			if($pos){
+			if($pos) {
 					// the data itself
 				$tempname = substr($string,0, $pos);
 				$pluginInfo[ $tempname ] = substr($string,$pos+2,strlen($string)-$pos-2);    
-				}
-			}
+                        }
+                }
 
-		if(!$is_error){
+                if (!array_key_exists('Loaded', $pluginInfo))
+                        $pluginInfo['Loaded'] = 'Yes';
+                
+		if(!$is_error && strpos($pluginInfo['Loaded'], 'Yes') !== FALSE){
 		// no error, no skip
 			if ( $type == "sm" && isset( $pluginInfo[ 'Version' ] ) && $pluginInfo[ 'Version' ] && isset( $pluginInfo[ 'Filename' ] ) && $pluginInfo[ 'Filename' ] ) {
 				$Version = $pluginInfo[ 'Version' ]; $Author = $pluginInfo[ 'Author' ]; $Title = $pluginInfo[ 'Title' ]; $URL = $pluginInfo[ 'URL' ]; $Status = $pluginInfo[ 'Status' ]; $Reloads = $pluginInfo[ 'Reloads' ]; $Timestamp = $pluginInfo[ 'Timestamp' ];
@@ -115,7 +119,7 @@
 				}
 
 			} elseif ( $type == "ext" && isset( $pluginInfo[ 'Loaded' ] ) && $pluginInfo[ 'Loaded' ] && isset( $pluginInfo[ 'File' ] ) && $pluginInfo[ 'File' ] ) {
-				$Info = $pluginInfo[ 'Binary info' ]; $Name = $pluginInfo[ 'Name' ];
+                                $Info = $pluginInfo[ 'Binary info' ]; $Name = $pluginInfo[ 'Name' ];
 				// remove the dirty path in front of the files
 				$basefile = preg_replace( '/^.+[\\\\\\/]/', '', $pluginInfo[ 'File' ] );
 				preg_match( '/.*\(version (.*?)\)/', $pluginInfo[ 'Loaded' ], $version ); $Version = $version[ 1 ];
@@ -144,14 +148,16 @@
 					fwrite( $fp, "New SourceMod extension $basefile ($Version) found, extension and link added to database.\n" );
 				}
 			}
-		} else
-			fwrite( $fp, $data );
+		} else {
+			$errors[$type][] = $pluginInfo['File'];
+                }
+//                return true;
 	}
 	
 	function walker_errorhandler( $errno, $errstr, $errfile, $errline ) {
 		
 		global $fp;
-		fwrite( $fp, "Error: " . $errstr . "\n" ); // . " on line $errline in file $errfile";
+		fwrite( $fp, "Error: ". $errline ." " . $errstr . "\n" ); // . " on line $errline in file $errfile";
 		
 	}
 	
@@ -166,6 +172,7 @@
 		session_start();
 		
 		$output = array();
+                $errors = array();
 		
 		if( isset( $_GET[ 'init' ] ) ) {
 			
@@ -310,7 +317,7 @@
 			
 			mysql_query( "DELETE FROM srv_mods WHERE status = 'inactive'" );
 			
-			fwrite( $fp, "Server update " . ( $update == 0 ? "failed" : ( $update == 1 ? "partially " : "" ) . "completed") . ".\n" );
+			fwrite( $fp, "Server update " . ( $update == 0 ? "failed" : ( $update == 1 ? "partially " : "" ) . "completed") . ".\n\n" );
 			
 			if( count( $_SESSION[ 'servers' ] ) == 0 ) {
 				
@@ -331,6 +338,16 @@
 			
 		}
 		
+                if (count($errors) > 0) {
+                    fwrite($fp, "Following errors encountered:\n");
+                    foreach ($errors as $type => $errors2) {
+                        foreach ($errors2 as $filename) {
+                            fwrite($fp, "\t$type: $filename\n");
+                        }
+                    }
+                }
+//                restore_error_handler();
+//                fclose($fp);
 		mysql_close();
 		
 		die( json_encode( $output ) );
@@ -357,7 +374,31 @@
 		
 	}
 	
-	var xmlhttp = lastid = false;
+	var xmlhttp1, xmlhttp2, lastid = false;
+        function getXMLHTTP() {
+            var xmlhttp;
+            if ( window.XMLHttpRequest ) { // Mozilla, Safari,...
+                    xmlhttp = new XMLHttpRequest();
+                    if ( xmlhttp.overrideMimeType )
+                            xmlhttp.overrideMimeType( 'text/xml' );
+            } else if (window.ActiveXObject) { // IE
+                    try {
+                            xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+                    } catch (e) {
+                            try {
+                                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                            } catch (e) {}
+                    }
+            }
+
+            if (! xmlhttp ) {
+
+                    alert('Cannot create XMLHTTP instance.');
+                    return false;
+
+            }
+            return xmlhttp;
+        }
 	var walker = {
 		
 		init: function() {
@@ -368,6 +409,7 @@
 			this.progress = 0;
 			this.currid = 0;
 			this.t = false;
+                        this.fileExists = false;
 			
 			this.window = document.getElementById( "progress" );
 			this.window.innerHTML = '';
@@ -429,8 +471,11 @@
 		
 		update: function( ) {
 			
-			if( !( this.progress == this.servers && this.done == true ) )
+			if( !( this.progress == this.servers && this.done == true ) && this.fileExists )
+//                            setTimeout( 'walker.status();', 0 );
 				document.getElementById( "log" + this.currid ).src = this.file;
+                        else if (!this.fileExists)
+                            this.status();
 			
 			if( this.done && this.progress < this.servers ) {
 				this.request( "next" );
@@ -438,7 +483,7 @@
 				this.done = false;
 			}
 			if( this.progress < this.servers )
-				this.t = setTimeout( 'walker.update();', 400 );
+				this.t = setTimeout( 'walker.update();', 1000 );
 			else {
 				var a = document.createElement( "iframe" );
 				a.src = "?clean";
@@ -449,46 +494,48 @@
 		},
 		
 		request: function( parameter ) {
+                        if(! parameter )
+                                parameter = '';
+			xmlhttp1 = getXMLHTTP();
 			
-			if(! parameter )
-				parameter = '';
-			
-			if ( window.XMLHttpRequest ) { // Mozilla, Safari,...
-				xmlhttp = new XMLHttpRequest();
-				if ( xmlhttp.overrideMimeType )
-					xmlhttp.overrideMimeType( 'text/xml' );
-			} else if (window.ActiveXObject) { // IE
-				try {
-					xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-				} catch (e) {
-					try {
-						xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-					} catch (e) {}
-				}
-			}
-			
-			if (! xmlhttp ) {
-			
-				alert('Cannot create XMLHTTP instance.');
-				return false;
-				
-			}
-			
-			xmlhttp.onreadystatechange = walker.handle;
-			xmlhttp.open( 'GET', '?walk&' + parameter, true );
-			xmlhttp.send( null );
+			xmlhttp1.onreadystatechange = walker.handle;
+			xmlhttp1.open( 'GET', '?walk&' + parameter, true );
+			xmlhttp1.send( null );
 			
 			return false;
 			
 		},
+                
+                status: function( ) {
+			xmlhttp2 = getXMLHTTP();
+			
+			xmlhttp2.onreadystatechange = walker.statusHandle;
+			xmlhttp2.open( 'GET', this.file, true );
+			xmlhttp2.send( null );
+			
+			return false;
+			
+		},
+                statusHandle: function( ) {
+			if ( xmlhttp2.readyState == 4 ) {
+			
+				if ( xmlhttp2.status == 200 ) {
+					walker.fileExists = true;
+				} else {	
+				}
+				
+			}
+
+			return false;
+		},
 		
 		handle: function( ) {
 			
-			if ( xmlhttp.readyState == 4 ) {
+			if ( xmlhttp1.readyState == 4 ) {
 			
-				if ( xmlhttp.status == 200 ) {
+				if ( xmlhttp1.status == 200 ) {
 					
-					var response = eval( '(' + xmlhttp.responseText + ')' );
+					var response = eval( '(' + xmlhttp1.responseText + ')' );
 					
 					if( walker.servers == false ) {
 						walker.servers = response.servers;
@@ -530,7 +577,7 @@
 					}
 				} else {
 				
-					alert( "Request failed. HTTP status code: " + xmlhttp.status );
+					alert( "Request failed. HTTP status code: " + xmlhttp1.status );
 					
 				}
 				

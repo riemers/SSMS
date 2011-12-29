@@ -48,11 +48,11 @@
         <legend>l4d(2) options (LEAVE BLANK IF YOU DONT HAVE FORKS)</legend>
         <dl>
                 <dt><label for="netconport">Netcon Port</label></dt>
-            <dd><input type="netconport" name="netconport" id="netconport" size="40" maxlength="255" value="<? echo $servercfg['netconport'];?>" /></dd>
+            <dd><input type="text" name="netconport" id="netconport" size="40" maxlength="255" value="<? echo $servercfg['netconport'];?>" /></dd>
         </dl>
         <dl>
                 <dt><label for="netconpasswd">Netcon Password</label></dt>
-            <dd><input type="netconpasswd" name="netconpasswd" id="netconpasswd" size="40" maxlength="255" value="<? echo $servercfg['netconpasswd'];?>" /></dd>
+            <dd><input type="text" name="netconpasswd" id="netconpasswd" size="40" maxlength="255" value="<? echo $servercfg['netconpasswd'];?>" /></dd>
         </dl>
 	</fieldset>
 	</legend>
@@ -62,7 +62,7 @@
         <legend>Options</legend>
         <dl>
                 <dt><label for="rconpass">Rcon Password</label></dt>
-            <dd><input type="rconpass" name="rconpass" id="rconpass" size="40" maxlength="255" value="<? echo $servercfg['rconpass'];?>" /></dd>
+            <dd><input type="text" name="rconpass" id="rconpass" size="40" maxlength="255" value="<? echo $servercfg['rconpass'];?>" /></dd>
         </dl>
 
         <dl>
@@ -96,7 +96,7 @@
         </dl>
         <dl>
                 <dt><label for="updatemessage">Update message to send before restart</label></dt>
-            <dd><input type="updatemessage" name="updatemessage" id="updatemessage" size="40" maxlength="255" value="<? echo $servercfg['updatemessage'];?>" /></dd>
+            <dd><input type="text" name="updatemessage" id="updatemessage" size="40" maxlength="255" value="<? echo $servercfg['updatemessage'];?>" /></dd>
         </dl>
 
     </fieldset>
@@ -121,11 +121,11 @@
                 <dt><label for="dlytime">Daily time to Restart</label></dt>
 				<? $hhmm = date('H:i', strtotime($servercfg['dlytime'])); ?>
 
-            <dd><input type="dlytime" name="dlytime" id="dlytime" size="5" maxlength="5" value="<? echo $hhmm;?>" /></dd>
+            <dd><input type="text" name="dlytime" id="dlytime" size="5" maxlength="5" value="<? echo $hhmm;?>" /></dd>
         </dl>
 		        <dl>
                 <dt><label for="dlycmd">Restart Command</label></dt>
-            <dd><input type="dlycmd" name="dlycmd" id="dlycmd" size="40" maxlength="255" value="<? echo $servercfg['dlycmd'];?>" /></dd>
+            <dd><input type="text" name="dlycmd" id="dlycmd" size="40" maxlength="255" value="<? echo $servercfg['dlycmd'];?>" /></dd>
         </dl>
 		        <dl>
                 <dt><label for="dlyusers">Max. Player Count</label></dt>
@@ -152,8 +152,9 @@
     <fieldset class="action">
 	<input type="hidden" name="update" value="yes">
 	<input type="hidden" name="serverid" value="<? echo $_GET['serverid'];?>">
-    <input type="submit" name="submit" id="submit" value="Submit" />
-	<input type="button" value="Cancel" onclick="$( '#server<? echo $_GET['serverid'];?>' ).dialog('close');">
+        <div style="clear: both;"></div>
+        <div style="width:200px;"><input type="submit" name="submit" id="submit" value="Submit" />
+	<input type="button" value="Cancel" onclick="$( '#serverall' ).dialog('close');"></div>
     </fieldset>
 </form>
 </div></body>

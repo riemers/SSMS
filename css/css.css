@@ -191,3 +191,6 @@ td.adheaders{
 background-color:#999999;
 color: #073257;
 }
+input[type="text"] {
+    width: 100%;
+}
