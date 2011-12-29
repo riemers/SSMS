@@ -20,14 +20,31 @@ CREATE TABLE IF NOT EXISTS `config` (
   UNIQUE KEY `setting` (`setting`,`config`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `Crashes`;
-CREATE TABLE IF NOT EXISTS `Crashes` (
-  `indexnum` int(11) NOT NULL AUTO_INCREMENT,
-  `timedate` int(11) NOT NULL DEFAULT '0',
-  `ServerNum` int(3) NOT NULL,
-  `ServerName` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`indexnum`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+INSERT INTO `config` (`setting`, `config`, `shortname`, `description`) VALUES
+('showrestarts', 'no', 'Show Restarts', 'Weither or not to show the extra tab for restarts, if you dont use the restarts plugin you cannot see any restarts from servers. If you dont use the plugin this is pretty much useless. This option will remove that tab, same as the rules option.'),
+('defaultmotd', 'no', 'Default motd', 'If you add a new server, should it by default have the motd flag on? This means that if you use the motd page that comes with SSMS it will show in there, handy if you dont want your warservers or test servers in the motd.'),
+('defaultautoupdate', 'yes', 'Auto update', 'Default set to yes, will mean that if a update comes out for this type of game, it will initiate a quit to the server in order for it to automaticly update (assuming you have -autoupdate or some other form that tries to update when you restart your server)'),
+('defaultgametypeinplugins', 'all', 'Default Gametype (NOT IN USE YET)', 'For the plugin tab, if you have 30 counter strike servers and only 1 tf2 server i can imagine that you want to have counter strike as default. Set this to the gametype value of that game. (if uncertain, leave it to all)'),
+('announceupdate', 'no', 'Announce Updates', 'announce it to the messagers that are turned on'),
+('usegrowl', 'no', 'Use Growl', 'If you want to use growl or not'),
+('usetwitter', 'no', 'Use Twitter', 'If you want to use twitter or not'),
+('useemail', 'no', 'Use E-Mail', 'If you want to use mail or not'),
+('consumerkey', '', 'Consumer Key', 'Your consumer key found on the dev twitter site when you create a new app for it.'),
+('emailalert', '', 'Email', 'The primary email address it will send a notification too if it needs to send out a email.'),
+('retrycount', '5', 'Retry Count', 'Number of retry''s the server can have before it sends out a notification that the server is down. Dont change this lower then 3 since a server could be changing maps and wont respond (and that will increase the retry count) thats also why in the server tab it will show as amber. '),
+('announceserverdown', 'yes', 'Announce down Server', 'If a server goes down, should we announce this to the steamgroup, email or both? (Valid values are, ''both'',''email'',''steam'',''none'')'),
+('defaultannounce', 'sm_msay Server is going down for update;sm_hsay Server is going down for restart', 'Client info update', 'if a server is allowed to do a update, this is the default string a new server will get. It will send out this string to the server if a update is starting. After the defined number of seconds it will issue the quit. This is the be more userfriendly and inform the users of what is happening.'),
+('server_prefix', '', 'Prefix', 'Server prefix (to cut down the name in plugin overview)'),
+('growlip', 'home.binkey.nl', 'Growl IP', 'IP address/hostname where to send the growl message towards (port  9887 udp needs to be open)'),
+('growlpass', 'lethal', 'Growl Password', 'Password used in growl to authenticate, can be a new one ofcourse in growl itself.'),
+('consumersecret', '', 'Consumer Secret', 'Your consumer secret found on the dev twitter site when you create a new app for it.'),
+('OAuthToken', '', 'OAuthToken', 'OAuthToken found within your account by access tokens.'),
+('OAuthTokenSecret', '', 'OAuthTokenSecret', 'OAuthTokenSecret found within your account by access tokens.'),
+('netconrestart', 'shutdown', 'Netcon Restart', 'The command that is send towards servers that use netcon (forks for l4d/l4d2 have this) preffered is ''shutdown'' since it will wait for the last players to go. Ofcourse ''quit'' can also be used.'),
+('adminactivity', 'yes', 'Admin Logs', 'Show the tab for Admin activity (only works in combination with the dbadmin.smx loaded)'),
+('usestats', 'no', 'Use Stats', 'Use statistics pages like hlstats (only hlstats for now)'),
+('statsprogram', 'hlxce', '', ''),
+('statsurl', '', 'Stats URL', 'Link to the webpage for the stats');
 
 DROP TABLE IF EXISTS `extensions`;
 CREATE TABLE IF NOT EXISTS `extensions` (
@@ -137,25 +154,6 @@ CREATE TABLE IF NOT EXISTS `servers` (
   PRIMARY KEY (`serverid`),
   UNIQUE KEY `ip` (`ip`,`port`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `sm_cookies`;
-CREATE TABLE IF NOT EXISTS `sm_cookies` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `access` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `sm_cookie_cache`;
-CREATE TABLE IF NOT EXISTS `sm_cookie_cache` (
-  `player` varchar(65) NOT NULL,
-  `cookie_id` int(10) NOT NULL,
-  `value` varchar(100) DEFAULT NULL,
-  `timestamp` int(11) NOT NULL,
-  PRIMARY KEY (`player`,`cookie_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `sm_logging`;
 CREATE TABLE IF NOT EXISTS `sm_logging` (
