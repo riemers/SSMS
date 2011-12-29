@@ -72,7 +72,6 @@
 					   'shortname' => "$shortname");
 		}
 		
-		if ($reply['showrules']['config'] == "yes") { echo  " | <a href=\"rules.php\">Default Rules</a>";}
 		if ($reply['showrestarts']['config'] == "yes") { echo " | <a href=\"restarts.php\">Restarts</a>";}
 		if ($reply['adminactivity']['config'] == "yes") { echo " | <a href=\"adminlogs.php\">Admin Activity</a>";}
 
