@@ -37,20 +37,6 @@
             </dd>
         </dl>
         <dl>
-                <dt><label for="showrules">Show Rules</label></dt>
-            <dd>
-                    <select size="1" name="showrules" id="showrules">
-                    <? if ($settings['showrules']['config'] == 'yes') {
-                        echo '<option value="yes" selected="selected">Yes</option>';
-                        echo '<option value="no">No</option>';}
-                    else {
-                        echo '<option value="no" selected="selected">No</option>';
-                        echo '<option value="yes">Yes</option>';
-                    }?>
-                </select><span class="hint">Weither or not to show the extra tab for rules. If you dont use this function set it to no.<span class="hint-pointer">&nbsp;</span>
-            </dd>
-        </dl>
-        <dl>
                 <dt><label for="adminactivity">View Admin Activity</label></dt>
             <dd>
                     <select size="1" name="adminactivity" id="adminactivity">
