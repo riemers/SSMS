@@ -82,7 +82,7 @@
 		$mod['latest'] = implode( '.', $numbers );
 		
 	}
-	
+
 	$result = mysql_query( "SELECT * from servers ORDER BY type DESC" ) or die( mysql_error() ); // retrieve all servers
 	while( $row = mysql_fetch_array( $result ) ) // for each result
 		if( $_GET[ 'game' ] == "all" || $row[ 'type' ] == $_GET[ 'game' ] ) // if the server matches the gametype selected
@@ -90,7 +90,7 @@
 				"serverid" => $row[ 'serverid' ],
 				"servername" => str_replace( $settings['server_prefix']['config'], '', $row[ 'servername' ] ),
 			);
-	
+
 	$result = mysql_query( "SELECT * from srv_mods" ) or die( mysql_error() ); // retrieve all links
 	while( $row = mysql_fetch_array( $result ) ) // for each result
 		if( isset( $versions[ $row[ $modvars[ 1 ] ] ] ) ) // if the mod exist
@@ -167,9 +167,11 @@
 	echo "<table class=\"listtable\" align=\"left\">\n";
 		
 		echo "	<tr>\n		<td>&nbsp;</td>\n";
+		if (! empty( $servers )) {
 		foreach( $servers as &$server ) // the servers
 			echo "		<td><img src=\"image.php?text=" . urlencode( $server[ 'servername' ] ) . "\"/></td>\n";
 		echo "	</tr>\n";
+		} else { echo "..  No servers yet, so no output yet here..";}
 		
 		foreach( $mods as &$mod ) { // for each mod
 			
