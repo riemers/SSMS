@@ -578,9 +578,12 @@ echo "<br/><br/>";
 		
 		echo "	<td id=\quicktools\" width=\"140\ style=\"white-space: nowrap; width:130px;\" nowrap=\"nowrap\">
 		<a class=\"tooltiptext\" title=\"Restart Options\"><img class=\"link\" src=\"images/restart.png\"  alt=\"Restart\" width=\"18\" height=\"18\" onclick=" . setwindow("singlerestart.php?serverid=$serverid", "Restart $servername") . " /></a>
-		<a class=\"tooltiptext\" title=\"Refresh Server \"><img class=\"link\" src=\"images/update.gif\" alt=\"Update\" onclick=\"if( confirm('Are you sure you want to update server \\'$servername\\'?') ) document.location='?update=$serverid'\"/>
-		<a class=\"tooltiptext\" title=\"View restarts\"><img class=\"link\" src=\"images/list-error.png\" onclick=\"document.location='restarts.php?serverid=$serverid'\" alt=\"List Error\" />
-		<a class=\"tooltiptext\" title=\"RCON\"><img class=\"link\" src=\"images/cmd.png\" alt=\"cmd\" onclick=\"document.location='rcon.php?serverid=$serverid'\" />
+		<a class=\"tooltiptext\" title=\"Refresh Server \"><img class=\"link\" src=\"images/update.gif\" alt=\"Update\" onclick=\"if( confirm('Are you sure you want to update server \\'$servername\\'?') ) document.location='?update=$serverid'\"/>";
+		$restarts = $config['showrestarts']['config'];
+		if ($restarts == "yes") {
+		echo "<a class=\"tooltiptext\" title=\"View restarts\"><img class=\"link\" src=\"images/list-error.png\" onclick=\"document.location='restarts.php?serverid=$serverid'\" alt=\"List Error\" />";
+		} 
+		echo "<a class=\"tooltiptext\" title=\"RCON\"><img class=\"link\" src=\"images/cmd.png\" alt=\"cmd\" onclick=\"document.location='rcon.php?serverid=$serverid'\" />
 		<a class=\"tooltiptext\" title=\"Delete\"><img class=\"link\" src=\"images/delete.gif\" alt=\"Delete\" onclick=\"if( confirm('Are you sure you want to remove server \\'$servername\\' from the database? This will also remove all the links to the plugins on this server.') )document.location='?delete=$serverid'\"/>
 		<a class=\"tooltiptext\" title=\"Settings\"><img class=\"link\" src=\"images/settings.png\" alt=\"Settings\" onclick=" . setwindow("serverconfig.php?serverid=$serverid", "Changing Settings for $servername") . " />
 		</td>\n
