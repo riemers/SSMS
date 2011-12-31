@@ -177,7 +177,7 @@
 		if( isset( $_GET[ 'init' ] ) ) {
 			
 			$_SESSION[ 'servers' ] = array();
-			$_SESSION[ 'walkfile' ] = "walk_" . rand() . ".txt";
+			$_SESSION[ 'walkfile' ] = "cache/walk_" . rand() . ".txt";
 			$output[ 'file' ] = $_SESSION[ 'walkfile' ];
 			$result = mysql_query( "SELECT serverid, servername, ip, port, rconpass from servers" . ( isset( $_GET[ 'id' ] ) ? " WHERE serverid='" . mysql_real_escape_string( $_GET[ 'id' ] ) . "'" : "" ) ) or die( "Error retrieving servers: " . mysql_error() ); // retrieve all servers
 			while( $row = mysql_fetch_array( $result ) )
