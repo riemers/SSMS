@@ -41,7 +41,7 @@ INSERT INTO `config` (`setting`, `config`, `shortname`, `description`) VALUES
 ('OAuthToken', '', 'OAuthToken', 'OAuthToken found within your account by access tokens.'),
 ('OAuthTokenSecret', '', 'OAuthTokenSecret', 'OAuthTokenSecret found within your account by access tokens.'),
 ('netconrestart', 'shutdown', 'Netcon Restart', 'The command that is send towards servers that use netcon (forks for l4d/l4d2 have this) preffered is ''shutdown'' since it will wait for the last players to go. Ofcourse ''quit'' can also be used.'),
-('adminactivity', 'yes', 'Admin Logs', 'Show the tab for Admin activity (only works in combination with the dbadmin.smx loaded)'),
+('adminactivity', 'no', 'Admin Logs', 'Show the tab for Admin activity (only works in combination with the dbadmin.smx loaded)'),
 ('usestats', 'no', 'Use Stats', 'Use statistics pages like hlstats (only hlstats for now)'),
 ('statsprogram', 'hlxce', '', ''),
 ('statsurl', '', 'Stats URL', 'Link to the webpage for the stats');
@@ -67,6 +67,15 @@ CREATE TABLE IF NOT EXISTS `games` (
   `expired` set('yes','no') NOT NULL DEFAULT 'no',
   `minplayers` int(2) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+INSERT INTO `games` (`shortname`, `longname`, `appID`, `version`, `expired`, `minplayers`) VALUES
+('tf', 'Team Fortress 2', 440, '1.1.9.2', 'no', 4),
+('left4dead', 'Left 4 Dead', 500, '1.0.2.6', 'no', NULL),
+('left4dead2', 'Left for Dead 2', 550, '2.0.9.4', 'no', NULL),
+('cstrike', 'Counter-Strike: Source', 240, '1.0.0.69', 'no', 4),
+('all', 'All Games', 0, '', '', NULL),
+('dod', 'Day of Defeat: Source', 300, '1.0.0.30', 'no', NULL),
+('nucleardawn', 'Nuclear Dawn', 17710, '11.12.15', 'no', NULL);
 
 DROP TABLE IF EXISTS `metamods`;
 CREATE TABLE IF NOT EXISTS `metamods` (
