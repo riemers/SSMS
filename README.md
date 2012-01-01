@@ -27,6 +27,10 @@ For updates on the plugin id's and version matching do this (only do it once! an
 
 	Please note that the plugin version crontab doensn't work yet since someone deleted some files on AM.
 
+Since this piece of php/html/etc could be filled with "security holes" instead of me finding out the wheel its best for you
+to just create a .htpasswd and .htpasswd in your folder (read apache google for that) since you wont hand this out to everybody
+anyway :-)
+
 Features
 --------
 
