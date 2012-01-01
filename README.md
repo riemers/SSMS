@@ -2,7 +2,7 @@ SSMS - Sourcemod Server Management System
 =========================================
 
 This tool should help you in the everlasting battle against plugin versions automatic updates and other handy things
-when it comes down to handling sourced game servers. At first i got the idea from the great tool nemrun but this would
+when it comes down to handling sourced game servers. At first i got the idea from the great [tool] nemrun but this would
 not work with windows based machines and used the same technique to query the master server for updates which is used
 by another great tool [steam condenser]
 
@@ -17,10 +17,12 @@ them in hlstats or just use the gui to do a addserver in the start.
 
 
 To update it automaticly dont forget to add a crontab, as example: 
+
 	*/1 * * * * cd /home/lethal/public_html/admin/ && php servers.php -u > /dev/null 2>&1
 
 
 For updates on the plugin id's and version matching do this (only do it once! and if possible change the time a bit random)
+
 	58 05 * * * cd /home/lethal/public_html/admin/ && php dbplugins.php -u > /dev/null 2>&1
 
 	Please note that the plugin version crontab doensn't work yet since someone deleted some files on AM.
