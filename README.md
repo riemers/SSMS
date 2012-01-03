@@ -49,9 +49,9 @@ Optional Features
 
 If you want to use the admin logging with a different database then "default" change the line:
 
-	SQL_TConnect(GotDatabase, "adminlog");
+	SQL_TConnect(GotDatabase, "default");
 
-To above example, where adminlog would be your database from databases.cfg
+To a entry in your databases.cfg
 
 Credits
 -------

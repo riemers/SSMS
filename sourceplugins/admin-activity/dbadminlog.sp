@@ -27,7 +27,7 @@ public OnPluginStart()
 
 StartSQL()
 {
-	SQL_TConnect(GotDatabase);
+	SQL_TConnect(GotDatabase, "default");
 }
 
 public GotDatabase(Handle:owner, Handle:hndl, const String:error[], any:data)
@@ -125,3 +125,4 @@ public T_RanLogging(Handle:owner2, Handle:hndl2, const String:error[], any:data)
 	CloseHandle(hndl2);
 	CloseHandle(owner2);
 }
+
