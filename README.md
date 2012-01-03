@@ -47,6 +47,11 @@ Optional Features
 * Server crash statistics, you would need to install the plugin that came with ssms on all your servers and add a line to databases.cfg for this to work and set "yes" on the config to allow it to show.
 * Admin logging, ever wanted to know if your admins just slap around all the time? Now you can, install the optional admin logging plugin on all your servers, setup databases.cfg and your off.
 
+If you want to use the admin logging with a different database then "default" change the line:
+
+	SQL_TConnect(GotDatabase, "adminlog");
+
+To above example, where adminlog would be your database from databases.cfg
 
 Credits
 -------
