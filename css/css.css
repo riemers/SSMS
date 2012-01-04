@@ -46,7 +46,8 @@ position:relative;
     font-size:13px;
     line-height:20px;
     color:#3d3d3d;
-	overflow: auto;
+	overflow: none;
+	clear:both;
 }
 #footer{
 position:relative;
@@ -193,4 +194,9 @@ color: #073257;
 }
 input[type="text"] {
     width: 100%;
+}
+
+th {
+background-color: #C8C8C8;
+border: solid 1px gray;
 }

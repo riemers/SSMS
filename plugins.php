@@ -100,6 +100,7 @@
 	
 	
 ?>
+<script src="js/jquery.stickytableheaders.js" type="text/javascript"></script> 
 <script type="text/javascript">
 
 	var lastPlugin = false;
@@ -133,6 +134,10 @@
 		
 	}
 	
+	$(document).ready(function () {
+		var scrollfunc = $("table").stickyTableHeaders();
+		//$('#content-wrapper').scroll(scrollfunc);
+	});
 </script>
 <span style="position: absolute; right: 20px;">
 	<img src="images/updatepluginsnew.gif" alt="update" style="padding-bottom:20px;">
@@ -166,11 +171,11 @@
 	
 	echo "<table class=\"listtable\" align=\"left\">\n";
 		
-		echo "	<tr>\n		<td>&nbsp;</td>\n";
+		echo "<thead>	<tr>\n		<th>&nbsp;</th>\n";
 		if (! empty( $servers )) {
 		foreach( $servers as &$server ) // the servers
-			echo "		<td><img src=\"image.php?text=" . urlencode( $server[ 'servername' ] ) . "\"/></td>\n";
-		echo "	</tr>\n";
+			echo "		<th><img src=\"image.php?text=" . urlencode( $server[ 'servername' ] ) . "\"/></th>\n";
+		echo "	</tr></thead><tbody>\n";
 		} else { echo "..  No servers yet, so no output yet here..";}
 		
 		foreach( $mods as &$mod ) { // for each mod
@@ -184,7 +189,7 @@
 			
 		}
 		
-	echo "</table>\n";
+	echo "</tbody></table><div style=\"clear:both\"></div>\n";
 	
 	
 	mysql_close();
