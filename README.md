@@ -15,6 +15,7 @@ Copy over all the files to your folder, update the config.php.example and rename
 to fit your needs (dont fill in what you dont have/need) You can import your servers if you have
 them in hlstats or just use the gui to do a addserver in the start.
 
+# Make sure the "cache" folder is writable for your webserver! (or just chmod 777 if you want)
 
 To update it automaticly dont forget to add a crontab, as example: 
 
@@ -52,6 +53,13 @@ If you want to use the admin logging with a different database then "default" ch
 	SQL_TConnect(GotDatabase, "default");
 
 To a entry in your databases.cfg
+
+Server overview for your website/community
+------------------------------------------
+
+You can have the servers just like in the list of the admin menu on your own webpage/forum/etc, there is a folder called serverstatus which has a minimum set of files. Copy this over to your favorite location and your done :)
+
+Dont forget to set your database settings in the serverstatus.php file.
 
 Credits
 -------
