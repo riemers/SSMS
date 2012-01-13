@@ -80,7 +80,7 @@
 		</tr>\n";
 	}
 
-	echo '</table>';
+	echo '</table><div style="clear:both;"></div>';
 
 
 

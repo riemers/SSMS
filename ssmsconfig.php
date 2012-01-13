@@ -33,7 +33,7 @@
 			echo '<option value="no" selected="selected">No</option>';
 			echo '<option value="yes">Yes</option>';
                     }?>
-                </select><span class="hint">Weither or not to show the extra tab for server restarts. If you dont use this function set it to no.<span class="hint-pointer">&nbsp;</span>
+                </select><span class="hint">Whether or not to show the extra tab for server restarts. If you dont use this function set it to no.<span class="hint-pointer">&nbsp;</span>
             </dd>
         </dl>
         <dl>

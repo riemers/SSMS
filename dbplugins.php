@@ -95,6 +95,8 @@
 
 	function doplugin($threadid,$args) {
 	 	$url = "http://alliedmods.net/~thijs/getPluginInfo.php?id=" . $threadid;	
+		print $url;
+		print "Wat is dit nou";
 		$json = file_get_contents($url);
 		if ($json == "NOTFOUND") { echo "MISS -> Threadid not found, make sure you use THREADID, not POSTID\n"; return; }
 		$data = json_decode($json);
