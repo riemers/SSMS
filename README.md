@@ -15,7 +15,7 @@ Copy over all the files to your folder, update the config.php.example and rename
 to fit your needs (dont fill in what you dont have/need) You can import your servers if you have
 them in hlstats or just use the gui to do a addserver in the start.
 
-# Make sure the "cache" folder is writable for your webserver! (or just chmod 777 if you want)
+!! Make sure the "cache" folder is writable for your webserver! (or just chmod 777 if you want)
 
 To update it automaticly dont forget to add a crontab, as example: 
 
