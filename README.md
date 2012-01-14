@@ -26,7 +26,7 @@ For updates on the plugin id's and version matching do this (only do it once! an
 
 	58 05 * * * cd /home/lethal/public_html/admin/ && php dbplugins.php -u > /dev/null 2>&1
 
-	Please note that the plugin version crontab doensn't work yet since someone deleted some files on AM.
+The DB plugin checker is experimental, so its still a bit buggy, feel free to tune it up a bit more.
 
 Since this piece of php/html/etc could be filled with "security holes" instead of me finding out the wheel its best for you
 to just create a .htpasswd and .htpasswd in your folder (read apache google for that) since you wont hand this out to everybody
