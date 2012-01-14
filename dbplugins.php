@@ -94,33 +94,37 @@
 	}
 
 	function doplugin($threadid,$args) {
-	 	$url = "http://alliedmods.net/~thijs/getPluginInfo.php?id=" . $threadid;	
-		print $url;
-		print "Wat is dit nou";
-		$json = file_get_contents($url);
-		if ($json == "NOTFOUND") { echo "MISS -> Threadid not found, make sure you use THREADID, not POSTID\n"; return; }
-		$data = json_decode($json);
-		$changefiles = str_replace(".sp",".smx", $data->files);
-		$uniqfiles = array_unique($changefiles);
-		foreach($uniqfiles as $allfiles) {
-			if (preg_match( '/\.smx/i', $allfiles)) {
-				$alles[] = $allfiles;
-			}
-		}
+
+        $html = file_get_contents("http://forums.alliedmods.net/showthread.php?t=$threadid&postcount=1");
+
+        $url = array();
+        preg_match("/Plugin ID.*?<div.*?>(.*?)<\/div>.*?Plugin Version.*?<div.*?>(.*?)<\/div>.*?Plugin Description:.*?<div.*?>(.*?)<\/div>.*?(\d{2}-\d{2}-\d{4}).*?/si", $html, $url);
+
+        array_shift($url);
+        print_r($url);
+
+		//if ($json == "NOTFOUND") { echo "MISS -> Threadid not found, make sure you use THREADID, not POSTID\n"; return; }
+		//$data = json_decode($json);
+		//$changefiles = str_replace(".sp",".smx", $data->files);
+		//$uniqfiles = array_unique($changefiles);
+		//foreach($uniqfiles as $allfiles) {
+	//		if (preg_match( '/\.smx/i', $allfiles)) {
+	//			$alles[] = $allfiles;
+	//		}
+	//	}
 		echo "Plugin information:\n";
 		
-		if (!empty($alles)) { 
-			$comma = implode(",", $alles); 
-		} else	{
-			echo ' ^ No files found : ';
+	//	if (!empty($alles)) { 
+	//		$comma = implode(",", $alles); 
+	//	} else	{
+	//		echo ' ^ No files found : ';
+	//	}
+	//	$lastupdate =  date("Y-m-d H:i:s",intval($data->last_updated));
+		$description = mysql_escape_string($url[2]);
+		if ($url) { 
+			echo "HIT -> $url[2]\n";
 		}
-		$lastupdate =  date("Y-m-d H:i:s",intval($data->last_updated));
-		$description = $data->description;
-		$description = mysql_escape_string($description);
-		if ($args) { 
-			echo "HIT -> $description\n";
-		}
-		$result = mysql_query( "INSERT INTO plugindb (pluginid,threadid,author,filename,description,version,lastupdate) VALUES('$data->id','$threadid','$data->author','$comma','$description','$data->version','$lastupdate') ON DUPLICATE KEY UPDATE author='$data->author',description='$description',version='$data->version',lastupdate='$lastupdate'") or die(mysql_error());
+		$result = mysql_query( "INSERT INTO plugindb (pluginid,threadid,description,version) VALUES('$url[0]','$threadid','$description','$url[1]') ON DUPLICATE KEY UPDATE description='$description',version='$url[1]'") or die(mysql_error());
 	}
 
 	function threadmatch() {
