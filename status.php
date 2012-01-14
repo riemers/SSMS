@@ -1,9 +1,9 @@
 <?php
 	
         $host = "www.lethal-zone.eu";
-        $user = "lethal";
-        $pass = "77earbuds";
-        $table = "lethal";
+        $user = "changeme";
+        $pass = "changeme";
+        $table = "changeme";
 
 	mysql_connect($host, $user, $pass) or die(mysql_error());
 	mysql_select_db($table) or die(mysql_error());
