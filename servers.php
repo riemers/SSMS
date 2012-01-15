@@ -436,6 +436,11 @@
 		checkversion();
 		renewserver( "all", true );
 	}
+
+     if ( isset( $_GET[ 'renew' ] ) ) {
+                checkversion();
+                renewserver( "all", true );
+        }
 	
 	if( isset( $_POST[ 'add' ] ) )
 		addserver( $_POST[ 'ip' ], $_POST[ 'port' ], $_POST[ 'rcon' ] );
