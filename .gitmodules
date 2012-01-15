@@ -1,0 +1,3 @@
+[submodule "steam-condenser"]
+	path = steam-condenser
+	url = git://github.com/koraktor/steam-condenser-php.git

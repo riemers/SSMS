@@ -2,7 +2,7 @@
 	
 	include( "config.php" );
 	include( "lib/functions.php" );
-	require_once 'lib/steam-condenser.php';
+	require_once 'steam-condenser/lib/steam-condenser.php';
 	
 	error_reporting( E_ALL ); //} no error will slip past unnoticed
 	ini_set( "display_errors", 1) ;

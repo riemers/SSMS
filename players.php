@@ -2,7 +2,7 @@
 // Be sure that the paths are correct
 include("config.php");
 include("lib/functions.php");
-require_once 'lib/steam-condenser.php';
+require_once 'steam-condenser/lib/steam-condenser.php';
 
         mysql_connect($host, $user, $pass) or die(mysql_error());
         mysql_select_db($table) or die(mysql_error());

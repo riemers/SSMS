@@ -2,7 +2,7 @@
 	
 	include("config.php");
 	include("lib/functions.php");
-	require_once 'lib/steam-condenser.php';
+	require_once 'steam-condenser/lib/steam-condenser.php';
 	
         define("CLI", !isset($_SERVER['HTTP_USER_AGENT']));
         function mysql_query_trace($query) {

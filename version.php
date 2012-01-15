@@ -1,6 +1,6 @@
 <?php
 	
-	require_once 'lib/steam-condenser.php';
+	require_once 'steam-condenser/lib/steam-condenser.php';
 	
         $master = new MasterServer(MasterServer::SOURCE_MASTER_SERVER);
         $challenge = $master->getChallenge();

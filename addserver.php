@@ -2,7 +2,7 @@
 
 include("config.php");
 include("lib/functions.php");
-require_once 'lib/steam-condenser.php';
+require_once 'steam-condenser/lib/steam-condenser.php';
 
 $start = head();
 
@@ -31,6 +31,14 @@ if ($status == "verify") {
     }
 //    require_once('scripts/source_query.php');
 	$server = new SourceServer($ip, $port);
+	$server->rconAuth('$rconpass');
+	$server->rconExec('status');
+	catch(RCONNoAuthException $e) {
+		trigger_error('Could not authenticate with the game server.',
+		E_USER_ERROR);
+                bottom($start);
+                die();
+	}
 	$info   = $server->GetInfo();
 	if (!$info['name']) {
 		echo '<b> There is a error with the information you supplied, please go back and verify.</b>';
