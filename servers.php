@@ -79,7 +79,13 @@
 	 foreach (array_keys($gametypes) as $game) {
 
 	$master = new MasterServer(MasterServer::SOURCE_MASTER_SERVER);
+	try {
 	$challenge = $master->getChallenge();
+	}
+                        catch(Exception $e) {
+				echo "Master server doesn't like to be fingered, perhaps its down?\n";
+                        }
+
 	$version = $gametypes[$game][version];
 	if (!$version) { $version = "1.0"; }
 	$longname = $gametypes[$game][longname];
