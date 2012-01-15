@@ -53,7 +53,7 @@
 		elseif ( $restartsend == "update" ) {$color = "waiting";}
 		else { $color = "orange";}
 
-		echo "<tr>\n   <td align=\"center\"><img src=\"images/" . $color  . ".png\" title=\"Number of retrys: " . $retrys . "\"/></td>\n";
+		echo "<tr>\n   <td align=\"center\"><img src=\"images/" . $color  . ".png\" title=\"Number of retries: " . $retrys . "\"/></td>\n";
 		echo "  <td><img src=\"images/" . $imgs[ $type ] . ".png\" /></td>\n";
 		echo "	<td><img src=\"images/" . $os . ".png\" /></td>\n";
 		echo "	<td>$serverid</td>\n";
