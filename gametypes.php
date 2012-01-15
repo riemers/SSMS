@@ -94,7 +94,7 @@
 		// add a call towards the singlerestart for the shutdown/quit command
 
                 echo '<form>';
-		echo 'A optional update means that valve updated the files but it is not a required update<br/>';
+		echo 'An optional update means that Valve updated the files but it is not a required update<br/>';
 		echo "Press below button to restart all servers for type " . $gametypes["$gametype"]['longname'];
 		if ( $gametypes["$gametype"]['minplayers'] == NULL) { echo ", we DONT check for users present!!<br/>";}
 		else { echo " when usercount is below " . $gametypes["$gametype"]['minplayers'] . " player(s)<br/>"; }
@@ -104,7 +104,7 @@
                 echo '</form>';
 
                 echo '<form>';
-                echo 'A Forced update means that a required update came out but the master servers where not updated yet. Because of this it didn\'t go automaticly, below button will fake a update so it will restart all servers which will update. This will <b>NOT</b> check for playercounts on the server but will send out a message to the servers players!<br/>';
+                echo 'A Forced update means that a required update came out but the master servers were not updated yet. Because of this it didn\'t go automatically, below button will fake a update so it will restart all servers which will update. This will <b>NOT</b> check for playercounts on the server but will send out a message to the server\'s players!<br/>';
                 echo "Press below button to restart all servers for type " . $gametypes["$gametype"]['longname'];
                 echo '<br/><input type="hidden" name="gametype" value="'. $gametype . '">';
                 echo '<input type="hidden" name="update" value="update">&nbsp;&nbsp;&nbsp;';

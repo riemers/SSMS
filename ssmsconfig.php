@@ -47,7 +47,7 @@
                         echo '<option value="no" selected="selected">No</option>';
                         echo '<option value="yes">Yes</option>';
                     }?>
-                </select><span class="hint">Weither or not to show the extra tab for admin activitylogs. If you dont use this function set it to no.<span class="hint-pointer">&nbsp;</span>
+                </select><span class="hint">Wether or not to show the extra tab for admin activitylogs. If you don't use this function set it to no.<span class="hint-pointer">&nbsp;</span>
             </dd>
         </dl>
         </legend>
@@ -65,7 +65,7 @@
                         echo '<option value="no" selected="selected">No</option>';
                         echo '<option value="yes">Yes</option>';
                     }?>
-                </select><span class="hint">If you add a new server, should it by default have the motd flag on? This means that if you use themotd page that comes with SSMS it will show in there, handy if you dont want your warservers or test servers in the motd.<span class="hint-pointer">&nbsp;</span>
+                </select><span class="hint">If you add a new server, should it by default have the motd flag on? This means that if you use themotd page that comes with SSMS it will show in there, handy if you don't want your warservers or test servers in the motd.<span class="hint-pointer">&nbsp;</span>
             </dd>
         </dl>
         <dl>
@@ -79,7 +79,7 @@
                         echo '<option value="no" selected="selected">No</option>';
                         echo '<option value="yes">Yes</option>';
                     }?>
-                </select><span class="hint">Default set to yes, will mean that if a update comes out for this type of game, it will initiate aquit to the server in order for it to automaticly update (assuming you have -autoupdate or some other form that tries to update when you restart your server) Be warned though, if your setup doesn't update automaticly it will restart 24/7<span class="hint-pointer">&nbsp;</span>
+                </select><span class="hint">Default set to yes, will mean that if an update comes out for this type of game, it will initiate aquit to the server in order for it to automatically update (assuming you have -autoupdate or some other form that tries to update when you restart your server) Be warned though, if your setup doesn't update automatically it will restart 24/7<span class="hint-pointer">&nbsp;</span>
             </dd>
         </dl>
         <dl>
@@ -93,7 +93,7 @@
                         echo '<option value="no" selected="selected">No</option>';
                         echo '<option value="yes">Yes</option>';
                     }?>
-                </select><span class="hint">Should we send out a message to the configured notification services if a update comes out?<span class="hint-pointer">&nbsp;</span>
+                </select><span class="hint">Should we send out a message to the configured notification services if an update comes out?<span class="hint-pointer">&nbsp;</span>
             </dd>
         </dl>
         <dl>
@@ -112,11 +112,11 @@
         </dl>
         <dl>
                 <dt><label for="retrycount">Retry Count</label></dt>
-            <dd><input type="retrycount" name="retrycount" id="retrycount" size="3" maxlength="3" value="<? echo $settings['retrycount']['config'];?>" /><span class="hint">Number of retry's the server can have before it sends out a notification that the server is down. Dont change this lower then 3 since a server could be changing maps and wont respond (and that will increase the retry count) thats also why in the server tab it will show as amber.<span class="hint-pointer"></span></dd>
+            <dd><input type="retrycount" name="retrycount" id="retrycount" size="3" maxlength="3" value="<? echo $settings['retrycount']['config'];?>" /><span class="hint">Number of retries the server can have before it sends out a notification that the server is down. Don't change this lower than 3 since a server could be changing maps and won't respond (and that will increase the retry count) that's also why in the server tab it will show as amber.<span class="hint-pointer"></span></dd>
         </dl>
         <dl>
                 <dt><label for="defaultannounce">Default Announce</label></dt>
-            <dd><input type="defaultannounce" name="defaultannounce" id="defaultannounce" size="30" maxlength="255" value="<? echo $settings['defaultannounce']['config'];?>" /><span class="hint">if a s                     erver is allowed to do a update, this is the default string a new server will get. It will send out this string to the server if a update is st                     arting. This is the be more userfriendly and inform the users of what is happening.<span class="hint-pointer">&nbsp;</span></dd>
+            <dd><input type="defaultannounce" name="defaultannounce" id="defaultannounce" size="30" maxlength="255" value="<? echo $settings['defaultannounce']['config'];?>" /><span class="hint">if a s                     erver is allowed to do an update, this is the default string a new server will get. It will send out this string to the server if a update is starting. This is to be more userfriendly and inform the users of what is happening.<span class="hint-pointer">&nbsp;</span></dd>
         </dl>
         <dl>
                 <dt><label for="server_prefix">Server Prefix</label></dt>
@@ -124,7 +124,7 @@
         </dl>
         <dl>
                 <dt><label for="netconrestart">Netcon Restart</label></dt>
-            <dd><input type="netconrestart" name="netconrestart" id="netconrestart" size="30" maxlength="255" value="<? echo $settings['netconrestart']['config'];?>" /><span class="hint">The command                      that is send towards servers that use netcon (forks for l4d/l4d2 have this) preffered is 'shutdown' since it will wait for the last players to                      go. Ofcourse 'quit' can also be used.<span class="hint-pointer">&nbsp;</span></dd>
+            <dd><input type="netconrestart" name="netconrestart" id="netconrestart" size="30" maxlength="255" value="<? echo $settings['netconrestart']['config'];?>" /><span class="hint">The command                      that is sent towards servers that use netcon (forks for l4d/l4d2 have this) preffered is 'shutdown' since it will wait for the last players to                      go. Ofcourse 'quit' can also be used.<span class="hint-pointer">&nbsp;</span></dd>
         </dl>
 
     </fieldset>

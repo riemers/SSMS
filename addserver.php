@@ -25,7 +25,7 @@ mysql_select_db($table) or die(mysql_error());
 if ($status == "verify") {
 
 	if(empty($ip) OR empty($port) OR empty($rconpass)){
-        	echo '<b>Please go back and provide all needed data.<br />';
+        	echo '<b>Please go back and provide all the needed data.<br />';
 		bottom($start);
 		die();
     }
@@ -41,7 +41,7 @@ if ($status == "verify") {
 	}
 	$info   = $server->GetInfo();
 	if (!$info['name']) {
-		echo '<b> There is a error with the information you supplied, please go back and verify.</b>';
+		echo '<b> There is an error with the information you supplied, please go back and verify.</b>';
 		bottom($start);
 		die();
 	}
@@ -87,7 +87,7 @@ elseif ($status == "import") {
 			print "\n\nDo you want to search plugins for it? Click <a href=walkserver.php?serverid=$lastid>HERE</a>\n";
 		}
 		else {
-			print "Adding failed, perhaps its already there?";
+			print "Adding failed, perhaps it's already there?";
 		}
 	}
 else {
