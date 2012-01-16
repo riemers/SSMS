@@ -61,7 +61,7 @@
 	
 	function checkversion() {
 	require_once 'lib/class.growl.php';
-	require_once 'lib/twitter.php';
+	require_once 'lib/twitter/twitter.php';
 	$settings = getsettings();
 
         $growlip = $settings['growlip']['config'];
@@ -136,7 +136,7 @@
 	function renewserver( $server, $cmd = false ) {
 
 	require_once 'lib/class.growl.php';
-	require_once 'lib/twitter.php';
+	require_once 'lib/twitter/twitter.php';
 	$settings = getsettings();
 
         $growlip = $settings['growlip']['config'];
