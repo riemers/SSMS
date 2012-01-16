@@ -1,5 +1,5 @@
 <?php
-	require_once 'lib/class.growl.php';
+	require_once 'lib/growl/class.growl.php';
         include("config.php");
         include("lib/functions.php");
 
