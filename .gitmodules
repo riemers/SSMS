@@ -1,3 +1,6 @@
 [submodule "steam-condenser"]
 	path = steam-condenser
 	url = git://github.com/koraktor/steam-condenser-php.git
+[submodule "lib/twitter"]
+	path = lib/twitter
+	url = git://github.com/tijsverkoyen/TwitterOAuth.git
