@@ -94,17 +94,9 @@
 		$game = "1";
 	}
 
-	if ($game == "1") {
-		echo "Up to date\n";
-	} else { 
-		echo "Not up to date\n";
-	}
-
-	unset($game);
-
 	if ($expired != "yes" ) { 
 	
-	                if ($response == "Your server is out of date, please upgrade") {
+	                if ($game != "1") {
 	                        mysql_query_trace( "UPDATE games SET expired='yes' WHERE shortname = '$game'");
 							if ($settings['useemail']['config'] == 'yes') {
 								$subject = "A update for $longname seems to be out, go check out the buzz...";
