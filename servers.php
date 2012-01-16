@@ -2,7 +2,7 @@
 	
 	include("config.php");
 	include("lib/functions.php");
-	require_once 'steam-condenser/lib/steam-condenser.php';
+	require_once 'lib/steam-condenser/lib/steam-condenser.php';
 	
         define("CLI", !isset($_SERVER['HTTP_USER_AGENT']));
         function mysql_query_trace($query) {
@@ -75,16 +75,8 @@
         $twitter->setOAuthToken("$OAuthToken");
         $twitter->setOAuthTokenSecret("$OAuthTokenSecret");
 		
-	 $gametypes = gametypes();
-	 foreach (array_keys($gametypes) as $game) {
-
-	$master = new MasterServer(MasterServer::SOURCE_MASTER_SERVER);
-	try {
-	$challenge = $master->getChallenge();
-	}
-                        catch(Exception $e) {
-				echo "Master server doesn't like to be fingered, perhaps its down?\n";
-                        }
+	$gametypes = gametypes();
+	foreach (array_keys($gametypes) as $game) {
 
 	$version = $gametypes[$game][version];
 	if (!$version) { $version = "1.0"; }
@@ -94,22 +86,24 @@
 
 	print "$game for $version\n"; // simple feedback part if needed
 
+	try {
+		$game = SteamGame::checkUpToDate($appid, $version);
+	} catch(Exception $e) {
+		echo "Seems $appid with version $version doesn't like to be probed\n";
+		echo "Setting gametype as 'up to date' , dont want to start stuff without proper knowledge\n";
+		$game = "1";
+	}
+
+	if ($game == "1") {
+		echo "Up to date\n";
+	} else { 
+		echo "Not up to date\n";
+	}
+
+	unset($game);
+
 	if ($expired != "yes" ) { 
 	
-	    try {
-	        $data = array(
-	            'challenge' => $challenge,
-	            'gamedir' => "$game",
-	            'product' => "$game",
-	            'version' => "$version"
-	        );
-	        $reply = $master->sendHeartBeat($data);
-	//		print_r($reply);
-	        if(empty($reply)) {
-	                next;
-	        } elseif($reply[sizeof($reply) - 1] instanceof M2S_REQUESTRESTART_Packet) {
-	                $response = $reply[0]->getMessage(); // see reply of version..
-	//				print_r($response);
 	                if ($response == "Your server is out of date, please upgrade") {
 	                        mysql_query_trace( "UPDATE games SET expired='yes' WHERE shortname = '$game'");
 							if ($settings['useemail']['config'] == 'yes') {
@@ -124,15 +118,13 @@
 								$connection = array('address' => '$growlip', 'password' => '$growlpass');
 								$growl->notify($connection, "$type", "UPDATE: $game", "A update for $longname seems to be out, go check out the buzz...");		
 							}
-								if ($settings['usetwitter']['config'] == 'yes') {
-								$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");
-								}
-						}
-				}
-			} catch(Exception $e) {}
+							if ($settings['usetwitter']['config'] == 'yes') {
+							$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");
+							}
 			}
-		}
+	 	 }
 	}
+}
 
 	function renewserver( $server, $cmd = false ) {
 
