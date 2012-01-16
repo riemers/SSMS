@@ -120,8 +120,9 @@
 							}
 							if ($settings['usegrowl']['config'] == 'yes') {
 								$growl = new Growl();
-                                $growl->setAddress($growlip, $growlpass);
-								$growl->notify("$type", "UPDATE: $game", "A update for $longname seems to be out, go check out the buzz...");		
+                                				//$growl->setAddress($growlip, $growlpass);
+								$connection = array('address' => '$growlip', 'password' => '$growlpass');
+								$growl->notify($connection, "$type", "UPDATE: $game", "A update for $longname seems to be out, go check out the buzz...");		
 							}
 								if ($settings['usetwitter']['config'] == 'yes') {
 								$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");

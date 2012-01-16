@@ -7,3 +7,6 @@
 [submodule "lib/steam-condenser"]
 	path = lib/steam-condenser
 	url = git://github.com/koraktor/steam-condenser-php.git
+[submodule "lib/growl"]
+	path = lib/growl
+	url = git://github.com/tylerhall/php-growl.git
