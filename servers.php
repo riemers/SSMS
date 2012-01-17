@@ -114,7 +114,7 @@
 								$growl->notify($connection, "$type", "UPDATE: $shortname", "A update for $longname seems to be out, go check out the buzz...");		
 							}
 							if ($settings['usetwitter']['config'] == 'yes') {
-							//$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");
+							$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");
 							}
 			}
 	 	 }
