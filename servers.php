@@ -83,6 +83,7 @@
 	$longname = $gametypes[$game][longname];
 	$expired = $gametypes[$game][expired];
 	$appid = $gametypes[$game][appid];
+	$shortname = $gametypes[$game][shortname];
 
 	print "$game for $version\n"; // simple feedback part if needed
 
@@ -97,7 +98,9 @@
 	if ($expired != "yes" ) { 
 	
 	                if ($game != "1") {
-	                        mysql_query_trace( "UPDATE games SET expired='yes' WHERE shortname = '$game'");
+				echo "Deze query moet nog\n";
+	                        mysql_query_trace( "UPDATE games SET expired='yes' WHERE shortname = '$shortname'");
+				echo "UPDATE games SET expired='yes' WHERE shortname = '$shortname'";
 							if ($settings['useemail']['config'] == 'yes') {
 								$subject = "A update for $longname seems to be out, go check out the buzz...";
 								$newstuff = getupdates($appid,'last');
@@ -108,10 +111,10 @@
 								$growl = new Growl();
                                 				//$growl->setAddress($growlip, $growlpass);
 								$connection = array('address' => '$growlip', 'password' => '$growlpass');
-								$growl->notify($connection, "$type", "UPDATE: $game", "A update for $longname seems to be out, go check out the buzz...");		
+								$growl->notify($connection, "$type", "UPDATE: $shortname", "A update for $longname seems to be out, go check out the buzz...");		
 							}
 							if ($settings['usetwitter']['config'] == 'yes') {
-							$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");
+							//$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");
 							}
 			}
 	 	 }
@@ -185,8 +188,9 @@
 							}
 							if ($settings['usegrowl']['config'] == 'yes') {
 								$growl = new Growl();
-								$growl->setAddress($growlip, $growlpass);
-								$growl->notify("$type", "RESTORED: $servername", "Instance $servername was down for $retries minutes. It is now back up again");
+								//$growl->setAddress($growlip, $growlpass);
+								$connection = array('address' => '$growlip', 'password' => '$growlpass');
+								$growl->notify($connection, "$type", "RESTORED: $servername", "Instance $servername was down for $retries minutes. It is now back up again");
 							}
 							if ($settings['usetwitter']['config'] == 'yes') {
 							$twitter->statusesUpdate("RESTORED: $servername. It was down for $retries minutes.");
@@ -383,8 +387,9 @@
 						}
 						if ($settings['usegrowl']['config'] == 'yes') {
 							$growl = new Growl();
-							$growl->setAddress($growlip, $growlpass);
-							$growl->notify("$type", "DOWN: $servername", "Instance $servername is down for $retries minutes. Please check");		
+							//$growl->setAddress($growlip, $growlpass);
+							$connection = array('address' => '$growlip', 'password' => '$growlpass');
+							$growl->notify($connection, "$type", "DOWN: $servername", "Instance $servername is down for $retries minutes. Please check");		
 						}
 						if ($settings['usetwitter']['config'] == 'yes') {
 						$twitter->statusesUpdate("DOWN: $servername. It has been down for 10 minutes");

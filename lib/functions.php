@@ -124,12 +124,14 @@
                 $version = $row['version'];
                 $expired = $row['expired'];
                 $minplayers = $row['minplayers'];
+		$shortname = $row['shortname'];
 
         $gametypes[$shortname] = array ( 'longname' => "$longname",
                                                     'appid' => "$appid",
                                                     'version' => "$version",
                                                     'expired' => "$expired",
-                                                    'minplayers' => "$minplayers");
+                                                    'minplayers' => "$minplayers",
+						    'shortname' => "$shortname");
 
         }
 
