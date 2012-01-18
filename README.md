@@ -6,6 +6,15 @@ when it comes down to handling sourced game servers. At first i got the idea fro
 not work with windows based machines and used the same technique to query the master server for updates which is used
 by another great tool [steam condenser]
 
+Download
+--------
+
+	git clone git://github.com/Snelvuur/SSMS.git
+	cd into your folder where you have it copied to or downloaded in.
+	git submodule update --init
+
+It is important to understand it uses submodules, so the init will download those files then too, otherwise they are empty.
+
 Install
 -------
 
@@ -69,7 +78,7 @@ Credits
 2. Koraktor for helping out and debugging issues and ofcourse his [steam condenser]
 3. Multiple people from irc mostly from Alliedmodders for helping/ideas.
 4. Several people from our community (Pablo/Alias/etc)
-5. DarthNinja for creating the frist [crashlogger] plugin.
+5. DarthNinja for creating the first [crashlogger] plugin.
 6. Author of admin logging plugin part (mentioned in the source of supplied plugin)
 
 [tool]: http://nephyrin.net/tools/nemrun/latest/
