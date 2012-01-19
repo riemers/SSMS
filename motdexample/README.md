@@ -19,3 +19,14 @@ Ofcourse you can also use this with any other server types (cstrike/l4d/l4d2/etc
 	$result = mysql_query( "SELECT * FROM servers where type='tf' and showmotd='yes' order by servername" );
 
 As you can see this is only for a list of tf2 servers. It also doesn't show the server if you have it set to no in your server config in SSMS.
+
+If you want to make your servernames shorter, find the line:
+
+	$name = str_replayce( "[EU] Lethal-Zone.eu TF2 ", "',$name[ 0 ]);
+
+Change that to the first part of your servers.
+
+NOTES
+-----
+
+As you can see we have some stat counters and google statistics in there, its always nice to see where players come from and how much. :-)
