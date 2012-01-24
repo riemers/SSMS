@@ -83,6 +83,7 @@
 	$longname = $gametypes[$game][longname];
 	$expired = $gametypes[$game][expired];
 	$appid = $gametypes[$game][appid];
+	$shortname = $gametypes[$game][shortname];
 
 	print "$game for $version\n"; // simple feedback part if needed
 
@@ -97,7 +98,9 @@
 	if ($expired != "yes" ) { 
 	
 	                if ($game != "1") {
-	                        mysql_query_trace( "UPDATE games SET expired='yes' WHERE shortname = '$game'");
+				echo "Deze query moet nog\n";
+	                        mysql_query_trace( "UPDATE games SET expired='yes' WHERE shortname = '$shortname'");
+				echo "UPDATE games SET expired='yes' WHERE shortname = '$shortname'";
 							if ($settings['useemail']['config'] == 'yes') {
 								$subject = "A update for $longname seems to be out, go check out the buzz...";
 								$newstuff = getupdates($appid,'last');
@@ -108,7 +111,7 @@
 								$growl = new Growl();
                                 				//$growl->setAddress($growlip, $growlpass);
 								$connection = array('address' => '$growlip', 'password' => '$growlpass');
-								$growl->notify($connection, "$type", "UPDATE: $game", "A update for $longname seems to be out, go check out the buzz...");		
+								$growl->notify($connection, "$type", "UPDATE: $shortname", "A update for $longname seems to be out, go check out the buzz...");		
 							}
 							if ($settings['usetwitter']['config'] == 'yes') {
 							$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");
@@ -157,6 +160,7 @@
 			try {
 				$info = $server->getServerInfo();
 			}
+
 			catch(Exception $e) {
 				// $fails[] = $serverid;
 				// no longer needed, since we just want it to continue
@@ -175,6 +179,15 @@
 				$mplayers = $info['maxPlayers'];
 				$bots = $info['botNumber'];
 				$protected = $info['passwordProtected'];
+				$servertags = $info['serverTags'];
+
+				if ($replaymatch == "yes") {
+					$server->rconAuth($rconpass);
+					$matchid = $server->rconExec('steamworks_sessionid_server');
+					$pattern = '([0-9][0-9][0-9]+)';
+					preg_match($pattern, $matchid, $matches);
+					mysql_query_trace( "INSERT INTO matchids ( serverid, mapname, sessionid ) VALUES( '$serverid','$map','$matches[0]' )");
+				}
 				
 					if ($retries > "9") {
 						try {
@@ -185,8 +198,9 @@
 							}
 							if ($settings['usegrowl']['config'] == 'yes') {
 								$growl = new Growl();
-								$growl->setAddress($growlip, $growlpass);
-								$growl->notify("$type", "RESTORED: $servername", "Instance $servername was down for $retries minutes. It is now back up again");
+								//$growl->setAddress($growlip, $growlpass);
+								$connection = array('address' => '$growlip', 'password' => '$growlpass');
+								$growl->notify($connection, "$type", "RESTORED: $servername", "Instance $servername was down for $retries minutes. It is now back up again");
 							}
 							if ($settings['usetwitter']['config'] == 'yes') {
 							$twitter->statusesUpdate("RESTORED: $servername. It was down for $retries minutes.");
@@ -367,7 +381,7 @@
 				
 					// we are going to check for the daily time 
 					
-				mysql_query_trace("UPDATE servers SET servername = '$servername', type = '$type', version = '$version', network = '$network', os = '$os', lastupdate = NOW(), currentmap = '$map', currentplayers = '$nplayers', maxplayers = '$mplayers', retries = '$retries', currentbots = '$bots', protected = '$protected' WHERE serverid = '$serverid'");
+				mysql_query_trace("UPDATE servers SET servername = '$servername', type = '$type', version = '$version', network = '$network', os = '$os', lastupdate = NOW(), currentmap = '$map', currentplayers = '$nplayers', maxplayers = '$mplayers', retries = '$retries', currentbots = '$bots', protected = '$protected', servertags = '$servertags' WHERE serverid = '$serverid'");
 			} else	{
 				if ( $goingdown == 'yes' && $restartsend != 'emptyserver' ) { 
 					mysql_query_trace("UPDATE servers SET restartsend='optional',goingdown='no' WHERE serverid = '$serverid'");
@@ -383,8 +397,9 @@
 						}
 						if ($settings['usegrowl']['config'] == 'yes') {
 							$growl = new Growl();
-							$growl->setAddress($growlip, $growlpass);
-							$growl->notify("$type", "DOWN: $servername", "Instance $servername is down for $retries minutes. Please check");		
+							//$growl->setAddress($growlip, $growlpass);
+							$connection = array('address' => '$growlip', 'password' => '$growlpass');
+							$growl->notify($connection, "$type", "DOWN: $servername", "Instance $servername is down for $retries minutes. Please check");		
 						}
 						if ($settings['usetwitter']['config'] == 'yes') {
 						$twitter->statusesUpdate("DOWN: $servername. It has been down for 10 minutes");

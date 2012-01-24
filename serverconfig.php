@@ -27,7 +27,6 @@
 	$servercfg = getserver($_GET['serverid']);
 	$servercfg = $servercfg['0'];
 
-	//print_r($servercfg);
 	//if (!empty($_POST)) header("Location: servers.php");
 
 ?>
@@ -79,6 +78,27 @@
                 </select>
             </dd>
         </dl>
+
+<?
+$tags = $servercfg['servertags'];
+
+if (preg_match("/replays/i","$tags")) {
+?>
+        <dl>
+                <dt><label for="replaymatch">Store MatchID's?</label></dt>
+            <dd>
+                    <select size="1" name="replaymatch" id="usereplay">
+                    <? if ($servercfg['replaymatch'] == 'yes') {
+                        echo '<option value="yes" selected="selected">Yes</option>';
+                        echo '<option value="no">No</option>';}
+                    else {
+                        echo '<option value="no" selected="selected">No</option>';
+                        echo '<option value="yes">Yes</option>';
+                    }?>
+                </select>
+            </dd>
+        </dl>
+<?  } ?>
 
         <dl>
                 <dt><label for="autoupdate">Auto update this server?</label></dt>

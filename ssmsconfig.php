@@ -36,6 +36,22 @@
                 </select><span class="hint">Whether or not to show the extra tab for server restarts. If you dont use this function set it to no.<span class="hint-pointer">&nbsp;</span>
             </dd>
         </dl>
+
+        <dl>
+                <dt><label for="usereplay">Use Replays</label></dt>
+            <dd>
+                    <select size="1" name="usereplay" id="usereplay">
+                    <? if ($settings['usereplay']['config'] == 'yes') {
+                        echo '<option value="yes" selected="selected">Yes</option>';
+                        echo '<option value="no">No</option>';}
+                    else {
+                        echo '<option value="no" selected="selected">No</option>';
+                        echo '<option value="yes">Yes</option>';
+                    }?>
+                </select><span class="hint">Whether or not to show the extra tab for server replays. See the readme for more info<span class="hint-pointer">&nbsp;</span>
+            </dd>
+        </dl>
+
         <dl>
                 <dt><label for="adminactivity">View Admin Activity</label></dt>
             <dd>
@@ -113,6 +129,10 @@
         <dl>
                 <dt><label for="retrycount">Retry Count</label></dt>
             <dd><input type="retrycount" name="retrycount" id="retrycount" size="3" maxlength="3" value="<? echo $settings['retrycount']['config'];?>" /><span class="hint">Number of retries the server can have before it sends out a notification that the server is down. Don't change this lower than 3 since a server could be changing maps and won't respond (and that will increase the retry count) that's also why in the server tab it will show as amber.<span class="hint-pointer"></span></dd>
+        </dl>
+        <dl>
+                <dt><label for="replaydays">Replay Days</label></dt>
+            <dd><input type="replaydays" name="replaydays" id="replaydays" size="3" maxlength="3" value="<? echo $settings['replaydays']['config'];?>" /><span class="hint">Number of days we should keep matchid's from the servers to link with youtube. The higher the number of days the more cpu intense it becomes. 30 days should be good for everyone.<span class="hint-pointer"></span></dd>
         </dl>
         <dl>
                 <dt><label for="defaultannounce">Default Announce</label></dt>
