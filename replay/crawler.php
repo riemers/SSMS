@@ -1,4 +1,5 @@
 <?php
+	include("../config.php");
 	
 	// EDIBLES, NOM NOM
 	define( "CRAWLER_DELAY", 60 * 60 * 24 * 2 ); // delay in seconds before a new match is first crawled 
@@ -9,8 +10,8 @@
 	require_once 'Zend/Loader.php';
 	Zend_Loader::loadClass('Zend_Gdata_YouTube');
 	
-	mysql_connect( "www.lethal-zone.eu", "ssms", "NtZ33QfUveZNnUzC" ) or die( mysql_error() );
-	mysql_select_db( "ssms" ) or die( mysql_error() );
+	mysql_connect( "$host", "$user", "$pass" ) or die( mysql_error() );
+	mysql_select_db( "$table" ) or die( mysql_error() );
 	
 	$period = time() - CRAWLER_DELAY;
 	
