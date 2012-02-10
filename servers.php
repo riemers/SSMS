@@ -60,21 +60,25 @@
 	}
 	
 	function checkversion() {
-	require_once 'lib/growl/class.growl.php';
-	require_once 'lib/twitter/twitter.php';
 	$settings = getsettings();
 
-        $growlip = $settings['growlip']['config'];
-        $growlpass = $settings['growlpass']['config'];
-        $consumerkey = $settings['consumerkey']['config'];
-        $consumersecret = $settings['consumersecret']['config'];
-        $OAuthToken = $settings['OAuthToken']['config'];
-        $OAuthTokenSecret = $settings['OAuthTokenSecret']['config'];
+        if ($settings['usegrowl']['config'] == 'yes') {
+            require_once 'lib/growl/class.growl.php';
+            $growlip = $settings['growlip']['config'];
+            $growlpass = $settings['growlpass']['config'];
+        }
 
-        $twitter = new Twitter("$consumerkey", "$consumersecret");
-        $twitter->setOAuthToken("$OAuthToken");
-        $twitter->setOAuthTokenSecret("$OAuthTokenSecret");
-		
+        if ($settings['usetwitter']['config'] == 'yes') {
+            require_once 'lib/twitter/twitter.php';
+            $consumerkey = $settings['consumerkey']['config'];
+            $consumersecret = $settings['consumersecret']['config'];
+            $OAuthToken = $settings['OAuthToken']['config'];
+            $OAuthTokenSecret = $settings['OAuthTokenSecret']['config'];
+            $twitter = new Twitter("$consumerkey", "$consumersecret");
+            $twitter->setOAuthToken("$OAuthToken");
+            $twitter->setOAuthTokenSecret("$OAuthTokenSecret");
+	}
+
 	$gametypes = gametypes();
 	foreach (array_keys($gametypes) as $game) {
 
@@ -98,9 +102,7 @@
 	if ($expired != "yes" ) { 
 	
 	                if ($game != "1") {
-				echo "Deze query moet nog\n";
 	                        mysql_query_trace( "UPDATE games SET expired='yes' WHERE shortname = '$shortname'");
-				echo "UPDATE games SET expired='yes' WHERE shortname = '$shortname'";
 							if ($settings['useemail']['config'] == 'yes') {
 								$subject = "A update for $longname seems to be out, go check out the buzz...";
 								$newstuff = getupdates($appid,'last');
@@ -123,21 +125,23 @@
 
 	function renewserver( $server, $cmd = false ) {
 
-	require_once 'lib/growl/class.growl.php';
-	require_once 'lib/twitter/twitter.php';
 	$settings = getsettings();
 
-        $growlip = $settings['growlip']['config'];
-        $growlpass = $settings['growlpass']['config'];
-        $consumerkey = $settings['consumerkey']['config'];
-        $consumersecret = $settings['consumersecret']['config'];
-        $OAuthToken = $settings['OAuthToken']['config'];
-        $OAuthTokenSecret = $settings['OAuthTokenSecret']['config'];
+        if ($settings['usegrowl']['config'] == 'yes') {
+            require_once 'lib/growl/class.growl.php';
+            $growlip = $settings['growlip']['config'];
+            $growlpass = $settings['growlpass']['config'];
+        }
 
-	if ($settings['usetwitter']['config'] == 'yes') {
-        	$twitter = new Twitter("$consumerkey", "$consumersecret");
-        	$twitter->setOAuthToken("$OAuthToken");
-        	$twitter->setOAuthTokenSecret("$OAuthTokenSecret");
+        if ($settings['usetwitter']['config'] == 'yes') {
+            require_once 'lib/twitter/twitter.php';
+            $consumerkey = $settings['consumerkey']['config'];
+            $consumersecret = $settings['consumersecret']['config'];
+            $OAuthToken = $settings['OAuthToken']['config'];
+            $OAuthTokenSecret = $settings['OAuthTokenSecret']['config'];
+            $twitter = new Twitter("$consumerkey", "$consumersecret");
+            $twitter->setOAuthToken("$OAuthToken");
+            $twitter->setOAuthTokenSecret("$OAuthTokenSecret");
 	}
 		
 		$gametypes = gametypes();
