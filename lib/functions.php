@@ -134,8 +134,7 @@
 						    'shortname' => "$shortname");
 
         }
-
-        return($gametypes);
+	if (isset($gametypes)) { return($gametypes); }
 	}
 
 	function getsettings() {

@@ -134,9 +134,11 @@
         $OAuthToken = $settings['OAuthToken']['config'];
         $OAuthTokenSecret = $settings['OAuthTokenSecret']['config'];
 
-        $twitter = new Twitter("$consumerkey", "$consumersecret");
-        $twitter->setOAuthToken("$OAuthToken");
-        $twitter->setOAuthTokenSecret("$OAuthTokenSecret");
+	if ($settings['usetwitter']['config'] == 'yes') {
+        	$twitter = new Twitter("$consumerkey", "$consumersecret");
+        	$twitter->setOAuthToken("$OAuthToken");
+        	$twitter->setOAuthTokenSecret("$OAuthTokenSecret");
+	}
 		
 		$gametypes = gametypes();
 		if( $server == "all" )
@@ -186,7 +188,9 @@
 					$matchid = $server->rconExec('steamworks_sessionid_server');
 					$pattern = '([0-9][0-9][0-9]+)';
 					preg_match($pattern, $matchid, $matches);
+					if ( $matches[0] ) {
 					mysql_query_trace( "INSERT INTO matchids ( serverid, mapname, sessionid ) VALUES( '$serverid','$map','$matches[0]' )");
+					}
 				}
 				
 					if ($retries > "9") {
