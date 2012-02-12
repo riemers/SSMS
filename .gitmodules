@@ -7,3 +7,6 @@
 [submodule "lib/growl"]
 	path = lib/growl
 	url = git://github.com/tylerhall/php-growl.git
+[submodule "lib/boxcar"]
+	path = lib/boxcar
+	url = git://github.com/boxcar/Boxcar-PHP-Provider.git
