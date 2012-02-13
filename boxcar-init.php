@@ -21,7 +21,7 @@ if (!function_exists('curl_init')) {
 $b = new boxcar_api(API_KEY, API_SEC);
 
         try {
-		$b->notify(YOUR_EMAIL, 'SUCCES', 'Your first notification for SSMS, your a champ!');
+		$b->notify(YOUR_EMAIL, 'SUCCES', 'Your first notification for SSMS, you are a champ!');
         } catch(Exception $e) {
 		echo "Seems that something went wrong, did you type in the correct email? And did you also subscribed to the SSMS feed in boxcar?";
 		echo "Double check that, you will be send back to the config page in 10 seconds. Otherwise just press the back button.";
