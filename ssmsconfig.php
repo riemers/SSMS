@@ -214,6 +214,33 @@
         </fieldset>
 
         <fieldset>
+                <legend>Boxcar</legend>
+                <img src=images/boxcar.png>
+        <dl>
+                <dt><label for="useboxcar">Announce via Boxcar</label></dt>
+            <dd>
+                    <select size="1" name="useboxcar" id="useboxcar">
+                    <? if ($settings['useboxcar']['config'] == 'yes') {
+                        echo '<option value="yes" selected="selected">Yes</option>';
+                        echo '<option value="no">No</option>';}
+                    else {
+                        echo '<option value="no" selected="selected">No</option>';
+                        echo '<option value="yes">Yes</option>';
+                    }?>
+                </select><span class="hint">Do we want to be informed via Boxcar?<span class="hint-pointer">&nbsp;</span>
+            </dd>
+        </dl>
+        <dl>
+                <dt><label for="growlip">Boxcar email(s)</label></dt>
+            <dd><input type="boxemail" name="boxemail" id="boxemail" size="30" maxlength="255" value="<? echo $settings['boxemail']['config'];?>" /><span class="hint">A list of comma seperated boxcar email(s). Comma seperated!<span class="hint-pointer">&nbsp;</span></dd>
+	<dd>Click <a href=boxcar-init.php><b>here</b></a> to test boxcar (best is to test with 1 email first) make sure you are subcripted to SSMS on boxcar</dd>
+        </dl>
+
+        </legend>
+        </fieldset>
+
+
+        <fieldset>
                 <legend>Growl</legend>
                 <img src=images/growl.png>
         <dl>

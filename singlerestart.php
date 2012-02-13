@@ -79,7 +79,7 @@
 	<input type="hidden" name="serverid" value="<? echo $_GET['serverid'];?>">
     <input type="submit" name="submit" id="submit" value="Restart NOW" />
 	<input type="submit" name="submit" id="submit" value="Restart when empty" />
-	<input type="button" value="Cancel" align="right" onclick="$( '#server<? echo $_GET['serverid'];?>' ).dialog('close');">
+	<input type="button" value="Cancel" align="right" onclick="$( '#serverall' ).dialog('close');">
     </fieldset>
 <?
 	if ($servercfg['type'] == 'left4dead' || $servercfg['type'] == 'left4dead2') {
