@@ -19,3 +19,11 @@ Example crontab:
 	*/2 * * * * cd /home/lethal/public_html/admin/replay && php crawler.php > /dev/null 2>&1
 
 Please note that this needs the Zend package with the google library in order to work (thats why it is included)
+
+	Change the youtube account data and api key in the config.php accordingly!
+
+Also if you dont want to use this in a youtube channel, remove the following line:
+
+	$yt->insertEntry( $videoEntry, $yt->getUserFavorites( "LethalZone" )->getSelfLink()->href );
+
+But if you do want it, then change the "LethalZone" to whatever your channel name is.

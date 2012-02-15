@@ -10,5 +10,8 @@
 	$user_hlstats = "changeme";
 	$pass_hlstats = "changeme";
 	$table_hlstats = "changeme";
-	
+
+        $googleUsername = "changeme";
+        $googlePassword = "changeme";
+        $developerKey = "changeme";
 ?>
