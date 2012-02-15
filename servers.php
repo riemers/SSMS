@@ -522,7 +522,7 @@ echo "<br/><br/>";
 	$strgame = $_GET[ 'game' ] != '%' ? 'game=' . $_GET[ 'game' ] . '&amp;' : '';
 	$desc = !isset( $_GET[ 'desc' ] ) ? '&amp;desc' : '';
 	$sort = isset( $_GET[ 'sort' ] ) ? $_GET[ 'sort' ] : 'servername';
-	$data = array( "status" => "Status", "type" => "Game", "os" => "OS", "serverid" => "ID", "servername" => "Name", "pwpro" => "", "currentmap" => "Current Map", "players" => "Players", "lastupdate" => "Last Update" );
+	$data = array( "retries" => "Status", "type" => "Game", "os" => "OS", "serverid" => "ID", "servername" => "Name", "pwpro" => "", "currentmap" => "Current Map", "currentplayers" => "Players", "lastupdate" => "Last Update" );
 	//$imgs = array( "tf" => "tf", "cstrike" => "css", "left4dead" => "l4d", "left4dead2" => "l4d2", "dayofdefeat" => "dod" );
 
 	
