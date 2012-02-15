@@ -18,6 +18,12 @@ It is important to understand it uses submodules, so the init will download thos
 Install
 -------
 
+NEW: To install make sure you have a databse and username/pwd then do a "touch config.php" followed by a chmod 777 config.php.
+Then go to /install this is just a poor installtion part for now but i would really like people to test it to see if it at
+least works for them. After that i'll clean it up a bit more. After your done chmod the config.php to 644. This does not
+automaticly do all steps, it only does the database table import and put the settings of SSMS in the config.php.
+
+OLD METHOD:
 First make a database, and fill it with the data of ssms.sql.
 
 Copy over all the files to your folder, update the config.php.example and rename it to config.php
@@ -59,11 +65,7 @@ Optional Features
 * Server crash statistics, you would need to install the plugin that came with ssms on all your servers and add a line to databases.cfg for this to work and set "yes" on the config to allow it to show.
 * Admin logging, ever wanted to know if your admins just slap around all the time? Now you can, install the optional admin logging plugin on all your servers, setup databases.cfg and your off.
 
-If you want to use the admin logging with a different database then "default" change the line:
-
-	SQL_TConnect(GotDatabase, "default");
-
-To a entry in your databases.cfg
+For more information, please see the "sourceplugins" folder.
 
 Server overview for your website/community
 ------------------------------------------
