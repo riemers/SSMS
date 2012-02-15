@@ -56,9 +56,10 @@ Features
 * Will warn 1 minute in advance to all players online with a popup or any command you would like to send out to the server before it goes down.
 * Overview for all your extensions/metamod/sourcemod plugins nicely in 1 big screen. This way you can easilly see which plugins you have installed and where something is different compared to your other servers.
 * Daily restarts set by time and even with a min/max player count
-* Alerting of servers that are down via Email, Growl and twitter. 
+* Alerting of servers that are down via Email, Growl and twitter (boxcar almost)
 * Valve Updates for servers get alerted the same way.
 * Use the server overview to do quick access things like see the players, restart a server (if empty), use rcon access.
+* Replay TRACKING! See example http://www.youtube.com/user/LethalZone?feature=guide
 
 Optional Features
 -----------------
