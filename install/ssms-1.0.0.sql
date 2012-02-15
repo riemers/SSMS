@@ -160,6 +160,21 @@ CREATE TABLE IF NOT EXISTS `sm_logging` (
   KEY `steamid` (`steamid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `plugindb` (
+  `pluginid` int(11) NOT NULL,
+  `threadid` int(11) NOT NULL,
+  `author` varchar(255) NOT NULL,
+  `filename` varchar(1000) NOT NULL,
+  `altwebsite` varchar(255) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  `info` varchar(5000) NOT NULL,
+  `version` varchar(20) NOT NULL,
+  `send` set('yes','no') NOT NULL DEFAULT 'yes',
+  `lastupdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`threadid`),
+  UNIQUE KEY `filename` (`filename`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `srv_mods` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `modid` int(5) NOT NULL,

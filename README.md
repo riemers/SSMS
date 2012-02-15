@@ -24,7 +24,7 @@ least works for them. After that i'll clean it up a bit more. After your done ch
 automaticly do all steps, it only does the database table import and put the settings of SSMS in the config.php.
 
 OLD METHOD:
-First make a database, and fill it with the data of ssms.sql.
+First make a database, and fill it with the data of installer/ssms<latestversion>.sql.
 
 Copy over all the files to your folder, update the config.php.example and rename it to config.php
 to fit your needs (dont fill in what you dont have/need) You can import your servers if you have
