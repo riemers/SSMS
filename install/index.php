@@ -67,7 +67,7 @@ echo "<span style='color:red;'>$curl_error</span>";
 
 }
 
-if(!isset($_POST)) {
+if(count($_POST)==0) {
 	docheckup();
 ?>
 
