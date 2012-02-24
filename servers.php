@@ -223,7 +223,7 @@
 				
 				
 				if ($gametypes[$type]['expired'] == "yes" ) {
-					if (version_compare( $version, $gametypes[$type]['version'], '>=' )) {
+					if (version_compare( $version, $gametypes[$type]['version'], '>' )) {
 						// if something was expired, check to see if a server has a newer version. If yes update version in games db and set expired to no.
 						mysql_query_trace("UPDATE games SET version='$version', expired='no' WHERE shortname='$type'") ;
 						// reset so it wont go restart if valve has the coffee break.
