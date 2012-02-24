@@ -96,6 +96,7 @@
 	} catch(Exception $e) {
 		echo "Seems $appid with version $version doesn't like to be probed\n";
 		echo "Setting gametype as 'up to date' , dont want to start stuff without proper knowledge\n";
+		echo "Seems like this is the error $e\n";
 		$game = "1";
 	}
 
