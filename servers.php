@@ -3,7 +3,7 @@
 	include("config.php");
 	include("lib/functions.php");
 	require_once 'lib/steam-condenser/lib/steam-condenser.php';
-	
+	$ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
         define("CLI", !isset($_SERVER['HTTP_USER_AGENT']));
         function mysql_query_trace($query) {
             /*$trace = debug_backtrace();
@@ -16,7 +16,7 @@
             return mysql_query($query);
         }
 	if(isset($_SERVER['argc'])) $args = getopt("u");
-	if (!$args) { $start = head(); }
+	if (!$args && !$ajax) { $start = head(); }
 	
 	mysql_connect($host, $user, $pass) or die(mysql_error());
 	mysql_select_db($table) or die(mysql_error());
@@ -471,7 +471,7 @@
 		// example format, easier to reuse all dialogs.
 		// setwindow($serverid, "serverconfig.php?serverid=$serverid", "Mooi nieuw titel");
 	}
-	
+	if (!$ajax) {
 ?>
 <div class="addServer" id="popup">
 	<form method="post" action="?" >
@@ -498,6 +498,11 @@ $(function() {
     modal: true,
 	autoOpen: false
 	});
+	var timer = setInterval(function() {
+		$.get('servers.php', '', function(data) {
+			$('#refreshcontent').html(data);
+		});
+	}, 60000);
 });
 </script>
 		
@@ -511,8 +516,8 @@ $(function() {
 </span>
 
 <?php
-
-
+}
+echo '<div id="refreshcontent">';
 echo "<a href=\"servers.php\">All Servers</a>";
 foreach (array_keys($gametypes) as $shortname) {
 	echo " - <a href=\"?game=$shortname\">" . $gametypes["$shortname"]['longname'] . "</a>";
@@ -619,8 +624,9 @@ echo "<br/><br/>";
 		$total = $total + $count[$type]['count'];
 	}
 	echo " &#187; <b>In total $total Server(s)!</b></center>";
-	
+	echo '</div>';
 	mysql_close();
-	bottom( $start );
+	if (!$ajax)
+		bottom( $start );
 	
 ?>
