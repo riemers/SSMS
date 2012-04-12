@@ -3,9 +3,10 @@
         include("config.php");
         include("lib/functions.php");
         require_once 'lib/steam-condenser/lib/steam-condenser.php';
-
+		
         mysql_connect($host, $user, $pass) or die(mysql_error());
         mysql_select_db($table) or die(mysql_error());
+		mysql_query('SET NAMES utf8');
 
 	$start = head();
 	$settings = getsettings();
@@ -42,11 +43,37 @@
 	}
 
 	$pattern = '/(STEAM_[01]:[01]:[0-9]{1,8})/';
-
+		$page = (int)$_GET['page'];
+		if ($page < 0)
+			$page = 0;
+		$pageSize = 100;
+		$result = mysql_query('SELECT COUNT(*) as count FROM servers JOIN sm_logging ON servers.serverid = sm_logging.serverid WHERE sm_logging.steamid LIKE \''. $_GET['steamid'] .'\';');
+		
+		$start = $page * $pageSize;
+		$row = mysql_fetch_array( $result );
+		if ($start >= $row['count']) {
+			$page = 0;
+		}
+		$start = $page * $pageSize;
+		
+		if ($start + $pageSize < $row['count'])
+			$next = '?page='. ($page + 1) . '&steamid=' . $_GET['steamid'];
+		if ($start - $pageSize >= 0)
+			$prev = '?page='. ($page - 1) . '&steamid=' . $_GET['steamid'];
+	
+	echo '<div id="pagination" style="text-align:center">Page '. ($page + 1) .' of '. ceil($row['count'] / $pageSize);
+	if (isset($prev)) {
+		echo '<span style="float:left"><a href="'. $prev .'">&lt; Previous page</a></span>';
+	}
+	if (isset($next)) {
+		echo '<span style="float:right"><a href="'. $next .'">Next page &gt;</a></span>';
+	}
+	//echo '<br />'."select servers.servername, sm_logging.* from servers join sm_logging on servers.serverid = sm_logging.serverid where sm_logging.steamid LIKE '" . $_GET['steamid'] . "' order by sm_logging.time_modified desc limit ". $start .",". $pageSize;
 	echo "<table class=\"listtable\" align=\"left\">";
 		echo "<tr class=\"headers\"><td class=\"adheaders\">Servername</td><td class=\"adheaders\">User</td><td class=\"adheaders\">Plugin</td><td class=\"adheaders\">Message</td><td class=\"adheaders\">Timestamp</td></tr>";
 
-        $result = mysql_query( "select servers.servername, sm_logging.* from servers join sm_logging on servers.serverid = sm_logging.serverid where sm_logging.steamid LIKE '" . $_GET['steamid'] . "' order by sm_logging.time_modified desc limit 0,100" ) or die(mysql_error());
+			
+        $result = mysql_query( "select servers.servername, sm_logging.* from servers join sm_logging on servers.serverid = sm_logging.serverid where sm_logging.steamid LIKE '" . $_GET['steamid'] . "' order by sm_logging.time_modified desc limit ". $start .",". $pageSize ) or die(mysql_error());
         while( $row = mysql_fetch_array( $result ) ) {
                 $servername = $row['servername'];
 				$servername = str_replace( $settings['server_prefix']['config'], '', $row[ 'servername' ]);

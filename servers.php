@@ -229,6 +229,11 @@
 						// reset so it wont go restart if valve has the coffee break.
 						$gametypes[$type]['expired'] = "no";
 					}
+					if (version_compare( $version, $gametypes[$type]['version'], '=' )) {
+						// if for some reason the gametype was changed but not the version then get out of that loop (rare condition, still on yes but already updated to both new version)
+						mysql_query_trace("UPDATE games SET version='$version', expired='no' WHERE shortname='$type'");
+						$gametypes[$type]['expired'] = "no";
+					}
 				}				
 
 				if ($restartsend == 'yes' || $restartsend == 'restart'  || $restartsend == 'optional') {
@@ -498,11 +503,16 @@ $(function() {
     modal: true,
 	autoOpen: false
 	});
+	var countdown = 60;
 	var timer = setInterval(function() {
-		$.get('servers.php', '', function(data) {
-			$('#refreshcontent').html(data);
-		});
-	}, 60000);
+		if (--countdown == -1) {
+			countdown = 60;
+			$.get('servers.php', '', function(data) {
+				$('#refreshcontent').html(data);
+			});
+		}
+		$('#countdown').html(countdown);
+	}, 1000);
 });
 </script>
 		
@@ -510,6 +520,8 @@ $(function() {
 </div>
 
 <span style=" right: 20px; margin-bottom:10px; float:right;">
+
+		Auto-Refresh active: <span id="countdown">60</span> seconds <img src="images/loading.gif" alt="Auto-Refresh" />
 	<a onclick="document.getElementById('popup').style.display = 'block';" class="tooltiptext" title="Add new server" style="cursor:pointer;cursor:hand"><img src="images/addserver.png" alt="Add New Server" ></a>
     
     <? echo "&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"javascript:void(0);\" style=\"cursor: help;\" onclick=" . setwindow("legenda.php","Help for icon legenda") . "><img src=\"images/legendahelpicon.png\" title=\"Legenda\" alt=\"Legenda\" style=\"padding-bottom:5px;\" ></a>"; ?>
@@ -530,7 +542,7 @@ echo "<br/><br/>";
 	$sort = isset( $_GET[ 'sort' ] ) ? $_GET[ 'sort' ] : 'servername';
 	$data = array( "retries" => "Status", "type" => "Game", "os" => "OS", "serverid" => "ID", "servername" => "Name", "pwpro" => "", "currentmap" => "Current Map", "currentplayers" => "Players", "lastupdate" => "Last Update" );
 	//$imgs = array( "tf" => "tf", "cstrike" => "css", "left4dead" => "l4d", "left4dead2" => "l4d2", "dayofdefeat" => "dod" );
-
+	echo '';
 	
 	echo "<table class=\"listtable\" align=\"left\">\n";
 	echo "<tr class=\"headers\">\n";
