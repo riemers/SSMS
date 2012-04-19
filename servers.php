@@ -231,8 +231,7 @@
 					}
 					if (version_compare( $version, $gametypes[$type]['version'], '=' )) {
 						// if for some reason the gametype was changed but not the version then get out of that loop (rare condition, still on yes but already updated to both new version)
-						mysql_query_trace("UPDATE games SET version='$version', expired='no' WHERE shortname='$type'");
-						$gametypes[$type]['expired'] = "no";
+						echo "test";
 					}
 				}				
 
