@@ -331,6 +331,8 @@
 								
 				mysql_query( "DELETE FROM `mods` WHERE ( select count( * ) from srv_mods where srv_mods.modid = mods.modid limit 1 ) = 0" );
 				
+				mysql_query( "DELETE FROM `extensions` WHERE ( select count( * ) from srv_mods where srv_mods.extid = extensions.extid limit 1 ) = 0" );
+				
 			} else
 				$output[ 'next' ] = $_SESSION[ 'servers' ][0][1];
 			
