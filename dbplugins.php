@@ -93,7 +93,7 @@
 		} else { echo '<br/><b>-- No plugins are outdated, your a champ!</b><br/>'; }
 	}
 
-	function doplugin($threadid,$args) {
+	function doplugin($threadid,$filename,$args) {
 
         $html = file_get_contents("http://forums.alliedmods.net/showthread.php?t=$threadid&postcount=1");
 
@@ -124,7 +124,8 @@
 		if ($url) { 
 			echo "HIT -> $url[2]\n";
 		}
-		$result = mysql_query( "INSERT INTO plugindb (pluginid,threadid,description,version) VALUES('$url[0]','$threadid','$description','$url[1]') ON DUPLICATE KEY UPDATE description='$description',version='$url[1]'") or die(mysql_error());
+		echo "$url";
+		$result = mysql_query( "INSERT INTO plugindb (pluginid,threadid,filename,description,version) VALUES('$url[0]','$threadid','$filename','$description','$url[1]') ON DUPLICATE KEY UPDATE description='$description',version='$url[1]'") or die(mysql_error());
 	}
 
 	function threadmatch() {
@@ -156,7 +157,7 @@
 		$result = mysql_query( "select distinct threadid from mods where threadid != 'NULL' and threadid != '0'" ) or die(mysql_error());
 		while( $row = mysql_fetch_array( $result ) ) {
 			echo "Updating " . $row['threadid'] . "... ";
-			doplugin($row['threadid'],$args);
+			doplugin($row['threadid'],$row['filename'],$args);
 		}
 		dbcompare();
 	}
