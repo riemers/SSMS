@@ -49,6 +49,8 @@ Since this piece of php/html/etc could be filled with "security holes" instead o
 to just create a .htpasswd and .htpasswd in your folder (read apache google for that) since you wont hand this out to everybody
 anyway :-)
 
+So above means, if you dont use a .htpasswd EVERYONE can view and control your servers so you MUST do this.
+
 Features
 --------
 
