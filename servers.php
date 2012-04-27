@@ -321,13 +321,12 @@
 					 if ($gametypes[$type]['expired'] == "yes" ||  version_compare( $version, $gametypes[$type]['version'], '<' ) ) {
 							// if a server is already updated and THEN the update comes out then it would still update it again, check for this
 							if ( version_compare( $version, $gametypes[$type]['version'], '=' ) ) { next;} 
-							//if ( version_compare( $version, $gametypes[$type]['version'], '<' ) ) { echo "oei, das nie goed 2e";} 
 							if (!$netconport) {
 							try {
                                  $server->rconAuth($rconpass);
                                  $server->rconExec($settings['defaultannounce']['config']);
 								 echo 'fout update kwam uit';
-							     mysql_query_trace("UPDATE servers SET restartsend='update' WHERE serverid = '$serverid'");
+							     mysql_query_trace("UPDATE servers SET restartsend='update' WHERE serverid = '$serverid' AND autoupdate = 'yes'");
                               } catch (RCONNoAuthException $e) {
                                     //trigger_error('Could not authenticate with the game server.',E_USER_ERROR);
 									echo 'error kan niet rconnen boeien, verder gaan';
