@@ -437,7 +437,7 @@ $(document).ready(function() {
 -->
 <?
 	}
-	mysql_close;
+	mysql_close();
 	bottom( $start );
 	
 ?>
