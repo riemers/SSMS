@@ -581,7 +581,9 @@ echo "<br/><br/>";
 		echo "	<td align=\"center\"><img src=\"images/" . $os . ".png\" alt=\"image os\" /></td>\n";
 		echo "	<td>$serverid</td>\n";
 		$servername = htmlspecialchars($servername);
-		echo "	<td width=\"100%\" overflow=\"scroll\"><a href=\"steam://connect/$ip:$port\" title=\"$ip:$port\">$servername</a></td>";
+		echo "	<td width=\"100%\" overflow=\"scroll\"><a href=\"steam://connect/$ip:$port\" title=\"$ip:$port\">$servername</a>";
+if (preg_match("/_registered/i","$servertags")) { echo '<a class="tooltip" title="This server is registered"><img align=right src=images/registered.png alt="registered">';}  
+echo "</td>";
 		
 		echo " <td align=\"center\" width=\"15\" nowrap=\"nowrap\">";
 		// Is Server Password Protected - sleutel = key
