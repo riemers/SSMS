@@ -16,4 +16,5 @@
 		<img src="images/pending.png" alt="Waiting for Players" /> -  Server is waiting for players to finish / playercount to drop before restarting.<br /><hr />
 		<img src="images/sad.gif" alt="Master Server Problem" /> -  Master server is still advertising an older version, while the servers have a newer version already.<br /><hr />
 		<img src="images/sleutel.gif" alt="Password Protected Server" /> -  Server requires a password to be able to join.<br /><hr />
+		<img src="images/sr_ico.jpg" width="18" height="18" alt="Steamrep URL" /> - Next to player, will send you to steamrep site.<br /><hr />
 </html>
