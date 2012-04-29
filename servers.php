@@ -596,15 +596,15 @@ echo "</td>";
 		
 		}
 			
-                $playersColor = '#390';
+                $playersColor = '#f60';
 		if ($currentplayers >= $maxplayers) {
-			$playersColor = '#f00';
+			$playersColor = '#390';
 		} elseif ($currentplayers / $maxplayers < 0.25) {
-			$playersColor = '#f60';
+			$playersColor = '#f00';
 		}
                 
 		echo "  <td width=\"60\" nowrap=\"nowrap\"><a style=\"cursor:pointer;cursor:hand;color:$playersColor\" class=\"tooltiptext\" onclick=" . setwindow("players.php?serverid=$serverid","$currentplayers players/bots active on $servername") . 
-		"title=\"$currentplayers players of the maximum $maxplayers are online <br />";
+		"title=\"$currentplayers players of the maximum $maxplayers are online";
 		if ( $currentbots > 0 ) { echo " of which $currentbots are bot(s)"; } 
 		echo "\">$currentplayers";
 		if ( $currentbots > 0 ) { 
