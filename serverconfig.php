@@ -120,6 +120,9 @@ if (preg_match("/replays/i","$tags")) {
         </dl>
 
     </fieldset>
+<?
+$type = $servercfg['type'];
+if (!preg_match("/left4dead/i","$type")) { ?>
 	<fieldset>
 		<legend>Daily restarts</legend>
         <dl>
@@ -169,6 +172,7 @@ if (preg_match("/replays/i","$tags")) {
 				?></dd>
         </dl>
 	</fieldset>
+<? } ?>
     <fieldset class="action">
 	<input type="hidden" name="update" value="yes">
 	<input type="hidden" name="serverid" value="<? echo $_GET['serverid'];?>">
