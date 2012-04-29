@@ -52,7 +52,7 @@
             		<a href="servers.php">Servers</a>
              		| <a href="plugins.php">Active Plugins</a>
              		| <a href="dbplugins.php">Plugin Checker</a>
-					| <a href="gametypes.php">Game Types</a>
+			| <a href="gametypes.php">Game Types</a>
 <?php
 		
 		include("config.php");
@@ -167,9 +167,10 @@
 
 function getstatsurl($statsinfo)
 {
-	if ( $statsinfo[2] == "BOT") { return; } 
-	if ($statsinfo[0] == 'hlxce') { $url = "<a href=\"" . $statsinfo[1] . "/hlstats.php?mode=search&q=" . $statsinfo[2] . "&st=uniqueid&game=\"><img src=\"images/stats_ico.png\" align=\"right\" /></a>"; return $url; } 
-	if ($statsinfo[0] == 'gameme') { $url = "<a href=\"" . $statsinfo[1] . "/search?q=" . $statsinfo[2] . "&si=uniqueid&rc=all&x=40&y=8\"><img src=\"images/stats_ico.png\" align=\"right\" /></a>"; return $url; } 
+	if ( $statsinfo[2] == "BOT" || $statsinfo[2] == "ERROR" ) { return; } 
+	if ($statsinfo[0] == 'hlxce') { $url = "<a href=\"" . $statsinfo[1] . "/hlstats.php?mode=search&q=" . $statsinfo[2] . "&st=uniqueid&game=\"><img src=\"images/stats_ico.png\" style=\"float:" . $statsinfo[3] . "\"></a>"; return $url; } 
+	if ($statsinfo[0] == 'gameme') { $url = "<a href=\"" . $statsinfo[1] . "/search?q=" . $statsinfo[2] . "&si=uniqueid&rc=all&x=40&y=8\"><img src=\"images/stats_ico.png\" style=\"float:" . $statsinfo[3] . "\"></a>"; return $url; } 
+	if ($statsinfo[0] == 'steamrep') { $url = "<a href=\"" . $statsinfo[1] . "/" . $statsinfo[2] . "\"><img src=\"images/sr_ico.jpg\" width=\"18\" height=\"18\" style=\"float:" . $statsinfo[3] . "\"></a>"; return $url; } 
 }
 
 function isSteamIdValid($steamId)

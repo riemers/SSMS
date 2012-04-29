@@ -51,7 +51,7 @@ if (empty($players)) { echo 'No active players found on server'; exit;}
         }
 
 echo "<table>";
-echo "<tr bgcolor=FF8C00><th width=14%>Name</th><th width=25%>Score</th><th width=14%>Ping</th><th width=14%>steamid</th><th width=14%>connect time</th><th width=14%>state</th><th width=14%>ip</th></tr>";
+echo "<tr bgcolor=FF8C00><th width=14%>Name</th><th width=25%>Score</th><th width=14%>Ping</th><th width=14%>steamid</th><th width=14%>connect time</th><th width=14%>state</th><th width=14%>ip</th><th width=14% nowrap=nowrap>Quick Info</th></tr>";
 $i=0;
 foreach($players as $player) {
         $steamid = $player->getsteamid();
@@ -60,7 +60,7 @@ foreach($players as $player) {
 	if ($i%2 == 0) { echo "<tr class=d0>"; $i++; }
 	else { echo "<tr class=d1>"; $i++; }
 if ($name ==  "") { echo "<td>New player connecting</td>"; }
-else { echo "<td>{$player->getName()}" . getstatsurl($statsinfo) . "</td>"; }
+else { echo "<td>{$player->getName()}</td>"; }
     echo "<td>{$player->getScore()}</td>";
     echo "<td>{$player->getPing()}</td>";
     try {
@@ -77,6 +77,16 @@ else { echo "<td>{$player->getName()}" . getstatsurl($statsinfo) . "</td>"; }
     echo "<td>$time</td>";
     echo "<td>{$player->getstate()}</td>";
     echo "<td>{$player->getipaddress()}</td>";
+	$statsinfo[3] = "none";
+        $steamrep[0] = "steamrep";
+        $steamrep[1] = "http://www.steamrep.com/profiles";
+        $steamrep[2] = "$profile";
+	$steamrep[3] = "none";
+    $t1 = getstatsurl($statsinfo);
+    $t2 = getstatsurl($steamrep);
+    
+    $tt = "$t1 $t2";
+    echo "<td>$tt</td>";
     echo "</tr>";
 }
 echo "</table>";

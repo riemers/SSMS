@@ -597,9 +597,9 @@ echo "</td>";
 		}
 			
                 $playersColor = '#f60';
-		if ($currentplayers >= $maxplayers) {
+		if ($currentplayers / $maxplayers > 0.65) {
 			$playersColor = '#390';
-		} elseif ($currentplayers / $maxplayers < 0.25) {
+		} elseif ($currentplayers / $maxplayers < 0.15) {
 			$playersColor = '#f00';
 		}
                 

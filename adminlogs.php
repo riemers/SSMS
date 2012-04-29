@@ -91,6 +91,7 @@
 		preg_match_all($pattern, $message, $matches);
 		$steamid2 = $matches[0][1];
 
+		$statsinfo[3] = "right";
 		if ($steamid != $steamid2 && $steamid2 != "") {
 			$matchprofile = SteamId::convertSteamIdToCommunityId($steamid2);
 			$statsinfo[2] = $steamid2;
