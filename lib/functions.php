@@ -53,6 +53,7 @@
              		| <a href="plugins.php">Active Plugins</a>
              		| <a href="dbplugins.php">Plugin Checker</a>
 			| <a href="gametypes.php">Game Types</a>
+                        | <a href="console.php">Multi Console</a>
 <?php
 		
 		include("config.php");
