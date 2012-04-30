@@ -20,7 +20,7 @@
 				array_push( $servers, $list[ $i ] );
 			else {
 				
-				$typeServers = mysql_query( "SELECT `serverid` FROM `servers` WHERE `type` = '" . $list[ $i ] . "'" );
+				$typeServers = mysql_query( "SELECT `serverid` FROM `servers` WHERE `type` = '" . $list[ $i ] . "' AND multic = 'yes'" );
 				while( $server = mysql_fetch_array( $typeServers ) )
 					array_push( $servers, $server[ 'serverid' ] );
 				
@@ -184,7 +184,7 @@
 <?php
 	
 	$settings = getsettings();
-	$servers = mysql_query( "SELECT `servers`.*, `games`.`longname` FROM `servers` JOIN `games` ON `servers`.`type` = `games`.`shortname` ORDER BY `type`" );
+	$servers = mysql_query( "SELECT `servers`.*, `games`.`longname` FROM `servers` JOIN `games` ON `servers`.`type` = `games`.`shortname` WHERE servers.multic = 'yes' ORDER BY `type`" );
 	$currType = false;
 	
 	while( $server = mysql_fetch_array( $servers ) ) {

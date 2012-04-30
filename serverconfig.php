@@ -99,6 +99,20 @@ if (preg_match("/replays/i","$tags")) {
             </dd>
         </dl>
 <?  } ?>
+	<dl>
+                <dt><label for="multic">Useable in multi console?</label></dt>
+            <dd>
+                    <select size="1" name="multic" id="multic">
+                    <? if ($servercfg['multic'] == 'yes') {
+                        echo '<option value="yes" selected="selected">Yes</option>';
+                        echo '<option value="no">No</option>';}
+                    else {
+                        echo '<option value="no" selected="selected">No</option>';
+                        echo '<option value="yes">Yes</option>';
+                    }?>
+                </select>
+            </dd>
+        </dl>
 
         <dl>
                 <dt><label for="autoupdate">Auto update this server?</label></dt>
