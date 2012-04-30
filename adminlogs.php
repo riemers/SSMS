@@ -8,7 +8,7 @@
         mysql_select_db($table) or die(mysql_error());
 		mysql_query('SET NAMES utf8');
 
-	$start = head();
+	$startTime = head();
 	$settings = getsettings();
 
 ?>
@@ -108,11 +108,9 @@
 		</tr>\n";
 	}
 
-	echo '</table><div style="clear:both;"></div>';
-
-
+	echo '</table><div style="clear:both;"></div></div>';
 
         mysql_close();
-        bottom( $start );
+        bottom( $startTime );
 
 ?>
