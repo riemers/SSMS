@@ -1,6 +1,8 @@
 SSMS - Sourcemod Server Management System
 =========================================
 
+Version 1.0.1
+
 This tool should help you in the everlasting battle against plugin versions automatic updates and other handy things
 when it comes down to handling sourced game servers. At first i got the idea from the great [tool] nemrun but this would
 not work with windows based machines and used the same technique to query the master server for updates which is used
