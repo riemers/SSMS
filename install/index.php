@@ -157,7 +157,7 @@ if($_POST['verder2']) {
         mysql_select_db($table) or die(mysql_error());
 
 
-	$run = exec("mysql --password=$pass -u $user $table < ssms-1.0.0.sql");
+	$run = exec("mysql --password=$pass -u $user $table < ssms-1.0.1.sql");
 	echo "All done!";
 }
 ?>
