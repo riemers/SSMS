@@ -16,7 +16,7 @@
             return mysql_query($query);
         }
 	if(isset($_SERVER['argc'])) $args = getopt("u");
-	if (!$args && !$ajax) { $start = head(); }
+	if (!isset($args) && !$ajax) { $start = head(); }
 	
 	mysql_connect($host, $user, $pass) or die(mysql_error());
 	mysql_select_db($table) or die(mysql_error());
