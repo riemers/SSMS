@@ -45,6 +45,12 @@
 <div id="mainwrapper">
 	<a href="http://www.lethal-zone.eu" title="Lethal-Zone - Gaming Community" id="badge"></a>
 	<a href="index.php"><img src="images/logo.png" alt="logo.png"  style="border:0" /></a>
+<?php
+if (isset($_SERVER["REMOTE_USER"])) { 
+	$auth_user = $_SERVER["REMOTE_USER"];
+	print "<b>Authenticated as: $auth_user</b>";
+}
+?>
     
 		<div id="bar">
 			<img src="images/bar_end_l.png" alt="bar_end_l.png" style="display:block;float:left;" />
@@ -55,6 +61,7 @@
 			| <a href="gametypes.php">Game Types</a>
                         | <a href="console.php">Multi Console</a>
 <?php
+		
 		
 		include("config.php");
 
