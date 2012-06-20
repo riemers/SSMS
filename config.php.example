@@ -14,4 +14,7 @@
         $googleUsername = "changeme";
         $googlePassword = "changeme";
         $developerKey = "changeme";
+
+        $boxcarapi = "UAPZ6mvhveHTO7AYECFL";
+        $boxcarsec = "YpNvlxGMkjK0s9I1pq8TvHYfyTEGV9KW65gMdE5A";
 ?>

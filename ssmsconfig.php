@@ -206,7 +206,7 @@
         </dl>
         <dl>
                 <dt><label for="emailalert">Email Address</label></dt>
-            <dd><input type="emailalert" name="emailalert" id="emailalert" size="30" maxlength="255" value="<? echo $settings['emailalert']['config'];?>" /><span class="hint">The E-mail to send th                     e messages for the alert to.<span class="hint-pointer">&nbsp;</span></dd>
+            <dd><input type="emailalert" name="emailalert" id="emailalert" size="30" maxlength="255" value="<? echo $settings['emailalert']['config'];?>" /><span class="hint">The E-mail to send the messages for the alert to. Comma seperated list.<span class="hint-pointer">&nbsp;</span></dd>
         </dl>
         <dl>
 
@@ -233,7 +233,7 @@
         <dl>
                 <dt><label for="growlip">Boxcar email(s)</label></dt>
             <dd><input type="boxemail" name="boxemail" id="boxemail" size="30" maxlength="255" value="<? echo $settings['boxemail']['config'];?>" /><span class="hint">A list of comma seperated boxcar email(s). Comma seperated!<span class="hint-pointer">&nbsp;</span></dd>
-	<dd>Click <a href=boxcar-init.php><b>here</b></a> to test boxcar (best is to test with 1 email first) make sure you are subcripted to SSMS on boxcar</dd>
+	<dd>Click <a href=boxcar-init.php><b>here</b></a> to test boxcar and make sure you are subcripted to SSMS on boxcar</dd>
         </dl>
 
         </legend>

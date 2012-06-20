@@ -48,7 +48,7 @@
 <?php
 if (isset($_SERVER["REMOTE_USER"])) { 
 	$auth_user = $_SERVER["REMOTE_USER"];
-	print "<b>Authenticated as: $auth_user</b>";
+	print "<div style='font-family:Arial, Helvetica, sans-serif; font-size:11px;'>Authenticated as: $auth_user</div>";
 }
 ?>
     

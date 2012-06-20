@@ -8,26 +8,26 @@
 
         $config = getsettings();
 
-$boxemail = $config['boxemail']['config'];
-
-define('API_KEY', 'UAPZ6mvhveHTO7AYECFL');
-define('API_SEC', 'YpNvlxGMkjK0s9I1pq8TvHYfyTEGV9KW65gMdE5A');
-define('YOUR_EMAIL', $boxemail);
+	$boxemail = $config['boxemail']['config'];
 
 if (!function_exists('curl_init')) {
         trigger_error('CURL must be enabled for boxcar_api to function', E_USER_ERROR);
 }
 
-$b = new boxcar_api(API_KEY, API_SEC);
+$b = new boxcar_api($boxcarapi,$boxcarsec);
 
+$emails = explode(",",$boxemail);
+foreach ($emails as $boxalert) {
         try {
-		$b->notify(YOUR_EMAIL, 'SUCCES', 'Your first notification for SSMS, you are a champ!');
+		$b->notify($boxalert, 'SUCCES', 'Your first notification for SSMS, you are a champ!');
         } catch(Exception $e) {
 		echo "Seems that something went wrong, did you type in the correct email? And did you also subscribed to the SSMS feed in boxcar?";
 		echo "Double check that, you will be send back to the config page in 10 seconds. Otherwise just press the back button.";
 		echo '<meta http-equiv="refresh" content="10; URL=ssmsconfig.php">';
+		echo $e;
 		die;
         }
+}
 
 ?>
 <meta http-equiv="refresh" content="0; URL=ssmsconfig.php">

@@ -79,6 +79,11 @@
             $twitter->setOAuthTokenSecret("$OAuthTokenSecret");
 	}
 
+        if ($settings['useboxcar']['config'] == 'yes') {
+	    require_once 'lib/boxcar/boxcar_api.php';
+	    $boxemail = $settings['boxemail']['config'];
+	}
+
 	$gametypes = gametypes();
 	foreach (array_keys($gametypes) as $game) {
 
@@ -108,7 +113,11 @@
 								$subject = "A update for $longname seems to be out, go check out the buzz...";
 								$newstuff = getupdates($appid,'last');
 								$message = "A update for $longname seems to be out, go check out the buzz...\n" . $newstuff;
-								mail($settings['emailalert']['config'], $subject, $message, null);
+								$smtpmails = $settings['emailalert']['config'];
+								$allmails = explode(",",$smtpmails);
+								foreach ($allmails as $sendto) {
+									mail($sendto, $subject, $message, null);
+								}
 							}
 							if ($settings['usegrowl']['config'] == 'yes') {
 								$growl = new Growl();
@@ -117,7 +126,21 @@
 								$growl->notify($connection, "$type", "UPDATE: $shortname", "A update for $longname seems to be out, go check out the buzz...");		
 							}
 							if ($settings['usetwitter']['config'] == 'yes') {
-							$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");
+							try {
+								$twitter->statusesUpdate("A update for $longname seems to be out, go check out the buzz...");
+							} catch(Exception $e) { echo "$e went wrong"; }
+							}
+							if ($settings['useboxcar']['config'] == 'yes') {
+								include("config.php");
+								$b = new boxcar_api($boxcarapi,$boxcarsec);
+								$emails = explode(",",$boxemail);
+								foreach ($emails as $boxalert) {
+        							try {
+                							$b->notify($boxalert, 'UPDATE', 'A update for ' . $longname  . ' seems to be out, go check out the buzz...');
+        							} catch(Exception $e) {
+									echo 'something went wrong with boxcar';
+       								  }
+								}
 							}
 			}
 	 	 }
@@ -144,6 +167,12 @@
             $twitter->setOAuthToken("$OAuthToken");
             $twitter->setOAuthTokenSecret("$OAuthTokenSecret");
 	}
+
+        if ($settings['useboxcar']['config'] == 'yes') {
+            require_once 'lib/boxcar/boxcar_api.php';
+            $boxemail = $settings['boxemail']['config'];
+        }
+
 		
 		$gametypes = gametypes();
 		if( $server == "all" )
@@ -197,13 +226,16 @@
 					mysql_query_trace( "INSERT INTO matchids ( serverid, mapname, sessionid ) VALUES( '$serverid','$map','$matches[0]' )");
 					}
 				}
-				
 					if ($retries > "9") {
-						try {
 							if ($settings['useemail']['config'] == 'yes') {
-											$subject = "$servername seems to be back up after it was down for $retries, which is in minutes";
-											$message = "Like the topic says, $servername seems to be back up after it was down for $retries";
-											mail($settings['emailalert']['config'], $subject, $message, null);
+								$subject = "$servername seems to be back up after it was down for $retries, which is in minutes";
+								$message = "Like the topic says, $servername seems to be back up after it was down for $retries";
+                                                                $smtpmails = $settings['emailalert']['config'];
+                                                                $allmails = explode(",",$smtpmails);
+                                                                foreach ($allmails as $sendto) {
+                                                                        mail($sendto, $subject, $message, null);
+                                                                }
+
 							}
 							if ($settings['usegrowl']['config'] == 'yes') {
 								$growl = new Growl();
@@ -212,9 +244,22 @@
 								$growl->notify($connection, "$type", "RESTORED: $servername", "Instance $servername was down for $retries minutes. It is now back up again");
 							}
 							if ($settings['usetwitter']['config'] == 'yes') {
-							$twitter->statusesUpdate("RESTORED: $servername. It was down for $retries minutes.");
+							try {
+								$twitter->statusesUpdate("RESTORED: $servername. It was down for $retries minutes.");
+								} catch (Exception $e) { echo $e; }
 							}
-						}	catch(Exception $e) {}
+
+							if ($settings['useboxcar']['config'] == 'yes') {
+								include("config.php");
+								$b = new boxcar_api($boxcarapi,$boxcarsec);
+
+								$emails = explode(",",$boxemail);
+								foreach ($emails as $boxalert) {
+									try {
+										$b->notify($boxalert, 'RESTORED', 'Instance ' . $servername . ' was down for ' . $retries . ' minutes. It is now back up again');
+									}	catch(Exception $e) { echo $e; }
+								}
+							}
 					}
 				// since we are in this loop the server has been reached so we can reset retry's back to 0.
 				$retries = "0";
@@ -401,11 +446,15 @@
 				if ( $restartsend == 'no' ) {
 					$fails[] = $serverid;
 					if ( $retries == "10" ) {
-					try {
 						if ($settings['useemail']['config'] == 'yes') {
 							$subject = "$servername seems to be down after 10 retries";
 							$message = "Like the topic says, $servername @ $serverIP seems to be down for 10 retries so thats 10 minutes\n Last map it was on: $currentmap";
-							mail($settings['emailalert']['config'], $subject, $message, null);
+                                                                $smtpmails = $settings['emailalert']['config'];
+                                                                $allmails = explode(",",$smtpmails);
+                                                                foreach ($allmails as $sendto) {
+                                                                        mail($sendto, $subject, $message, null);
+                                                                }
+
 						}
 						if ($settings['usegrowl']['config'] == 'yes') {
 							$growl = new Growl();
@@ -414,9 +463,23 @@
 							$growl->notify($connection, "$type", "DOWN: $servername", "Instance $servername is down for $retries minutes. Please check");		
 						}
 						if ($settings['usetwitter']['config'] == 'yes') {
-						$twitter->statusesUpdate("DOWN: $servername. It has been down for 10 minutes");
+					try {
+							$twitter->statusesUpdate("DOWN: $servername. It has been down for 10 minutes");
+					} catch (Exception $e) { echo $e;}
 						}
-					} catch (Exception $e) {}
+
+						if ($settings['useboxcar']['config'] == 'yes') {
+							include("config.php");
+                                                	$b = new boxcar_api($boxcarapi,$boxcarsec);
+
+                                                	$emails = explode(",",$boxemail);
+                                                	foreach ($emails as $boxalert) {
+								try {
+                                                	     $b->notify($boxalert, 'DOWN', 'Instance ' . $servername . ' is down for ' . $retries . ' minutes');
+								} catch (Exception $e) { echo $e;}
+                                                	}
+						}
+
 					}
 					if ( !$_GET['update'] == 'all') { mysql_query_trace( "UPDATE servers SET retries=retries+1  WHERE serverid = '$serverid'");}
 					// so that web updates for all dont screw up the retry count. Assuming people run the php in cron.
