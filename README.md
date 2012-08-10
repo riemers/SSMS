@@ -69,6 +69,7 @@ Optional Features
 -----------------
 * Server crash statistics, you would need to install the plugin that came with ssms on all your servers and add a line to databases.cfg for this to work and set "yes" on the config to allow it to show.
 * Admin logging, ever wanted to know if your admins just slap around all the time? Now you can, install the optional admin logging plugin on all your servers, setup databases.cfg and your off.
+* Server Ads, show ingame also other servers and give the option to players to type !servers and join another server by pressing F3. Show them what you have more as a community!
 
 For more information, please see the "sourceplugins" folder.
 
