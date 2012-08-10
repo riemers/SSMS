@@ -218,8 +218,10 @@
 				$servertags = $info['serverTags'];
 
 				if ($replaymatch == "yes") {
-					$server->rconAuth($rconpass);
-					$matchid = $server->rconExec('steamworks_sessionid_server');
+					try {
+						$server->rconAuth($rconpass);
+						$matchid = $server->rconExec('steamworks_sessionid_server');
+					} catch (Exception $e) { echo $e; }
 					$pattern = '([0-9][0-9][0-9]+)';
 					preg_match($pattern, $matchid, $matches);
 					if ( $matches[0] ) {

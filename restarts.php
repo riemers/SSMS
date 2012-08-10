@@ -8,7 +8,10 @@
 	
 	if( isset( $_POST[ 'x' ] ) )
 		if( !isset( $_POST[ 'delete' ] ) )
-			mysql_query( "TRUNCATE TABLE restarts" );
+			if( !isset( $_POST[ 'serverid' ] ) || !is_numeric( $_POST[ 'serverid' ] ) )
+				mysql_query( "TRUNCATE TABLE restarts" );
+			else
+				mysql_query( "DELETE FROM restarts where serverid = " . $_POST[ 'serverid' ] );
 		else
 			foreach( $_POST[ 'delete' ] as &$id )
 				mysql_query( "DELETE FROM restarts where indexnum = " . $id );
