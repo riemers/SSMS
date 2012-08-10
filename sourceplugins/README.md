@@ -23,3 +23,18 @@ If you want to use the admin logging with a different database then "default" ch
 
 To a entry in your databases.cfg, if you just use the .smx your database.cfg needs to have a "default" one where it writes too (assuming that
 a database one and not sqlite)
+
+ServerAds
+---------
+
+The server ads works in the same concepts of http://forums.alliedmods.net/showthread.php?t=150674 , only difference is that this one is 1 plugin
+that gets the data from the ssms database. Afterall, if we pull the servers for data.. there is no need to do it again. So make sure you poll like
+once a minute (which is the intetion of ssms) if you run this plugin. It will check the gametype and only show "also availible" lines on your screen
+for that type. If you go to your settings per server you can say "show server in motd" if this is set to "No" it wont show it in the list.
+
+If your database is called anything else than "ssms" change the line in the config called:
+
+	SQL_TConnect(SQLT_Connect, "ssms");
+
+To what you want from you databases.cfg. Dont forget to place the txt file into your translation folder and adjust accordingly. (so change the
+lethal-zone part for instance) some other values can be changed there too.
