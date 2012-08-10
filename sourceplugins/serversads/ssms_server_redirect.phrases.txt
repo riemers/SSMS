@@ -1,0 +1,33 @@
+"Phrases"
+{
+	"Server List Title"
+	{
+		"en"			"Servers:"
+	}
+
+	// Case-insensitive
+	// {NAME} {IP} {MAP} {PLAYERS} {BOTS} {MAXPLAYERS}
+	"Server List Entry"
+	{
+		"en"			"{NAME} - {MAP} - {PLAYERS}/{MAXPLAYERS}"
+	}
+
+	"No servers available"
+	{
+		"en"			"No servers available"
+	}
+
+	"Strip From Hostname"
+	{
+		"en"			"[EU] Lethal-Zone.eu TF2 "
+	}
+
+	// Case-insensitive
+	// {NAME} {IP} {MAP} {PLAYERS} {BOTS} {MAXPLAYERS}
+	// Case-sensitive
+	// {default}, {green}, {lightgreen}, {red}, {blue}, {olive}
+	"Advertisment"
+	{
+		"en"			"Also available: {green}{NAME} - {MAP} ({lightgreen}{PLAYERS}{default}{green}/{lightgreen}{MAXPLAYERS}{green}) {default}- Say {olive}!servers{default} to switch servers."
+	}
+}
