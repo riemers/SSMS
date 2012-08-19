@@ -204,7 +204,7 @@
 	
 ?>
 </form>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<div style="clear:left;">&nbsp;</div>
 <?php	
 	
 	bottom($start);
