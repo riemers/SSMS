@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `restarts` (
 
 CREATE TABLE IF NOT EXISTS `servers` (
   `serverid` int(5) NOT NULL AUTO_INCREMENT,
-  `servername` varchar(255) NOT NULL,
+  `servername` varchar(255) NOT NULL DEFAULT 'someserver',
   `ip` varchar(255) NOT NULL,
   `port` varchar(255) NOT NULL,
   `netconport` int(7) DEFAULT NULL,
