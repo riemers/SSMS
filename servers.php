@@ -195,6 +195,8 @@
 			$server = new SourceServer($serverIP, $port); 
 			try {
 				$info = $server->getServerInfo();
+				$rules = $server->getRules();
+				print $rules['sv_registration_succesful'];
 			}
 
 			catch(Exception $e) {

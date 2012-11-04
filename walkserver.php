@@ -10,7 +10,7 @@
 	error_reporting(E_ALL);
 	ini_set("display_errors", 1); 
 
-	SteamSocket::setTimeout(50);
+	//SteamSocket::setTimeout(2000);
 	
 	function getnumbers($data)
 	{
@@ -155,7 +155,8 @@
 	function walker_errorhandler( $errno, $errstr, $errfile, $errline ) {
 		
 		global $fp;
-		fwrite( $fp, "Error: ". $errline ." " . $errstr . "\n" ); // . " on line $errline in file $errfile";
+		fwrite( $fp, "Error: ". $errline ." " . $errstr . " on line " . $errline . " in file " . $errfile . "\n" );
+		//fwrite( $fp, "Error: ". $errline ." " . $errstr . "\n" ); // . " on line $errline in file $errfile";
 		
 	}
 	
@@ -200,17 +201,28 @@
 
 			$serverIP = $ip;
 			$server = new SourceServer( $serverIP, $port );
+
+			//$server->initialize();
+			//fwrite($fp, $server->getPlayers() );
+
+			//$info = $server->getServerInfo();
+			//fwrite ($fp, "$info" );
+
+			//echo "$poep";
 			
 			$error = false;
 			try {
 				$server->rconAuth($rcon);
 			} catch(Exception $e) {
-				fwrite( $fp, "Unable to Authenticate to server, perhaps down?" ); 
+				fwrite( $fp, "Unable to Authenticate to server, perhaps down? $serverIP $port $server $rcon" ); 
 				$error = $e;
 			}
 
-			if( $error )
-				fwrite( $fp, $error );
+			if( $error ) {
+				fwrite( $fp, "Unable to continue" );
+				// Use below line to check error
+				//fwrite( $fp, "$error" );
+				}
 			else {
 				
 				fwrite( $fp, "Connection to server established.\n" );
