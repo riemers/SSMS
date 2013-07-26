@@ -343,7 +343,7 @@
 						} else { 	
 								if (!$netforkrestart[$netconport]=="yes") {
 									$timeout = '2';
-									$usenet = fsockopen($ip, $netconport, &$errno, &$errstr, $timeout);
+									$usenet = fsockopen($ip, $netconport, $errno, $errstr, $timeout);
 									if(!$usenet) { 
                                         // to make sure they dont stay in "update" state, or we get 2x a restart of netcon!
                                         // pretty pointless in the end, since netcon port is down = all is down.
@@ -384,7 +384,7 @@
 								// we have found a gametype l4d(2) which uses forks. Use the netcon port
 								if (!$netforkupdate[$netconport]=="yes") {
 									$timeout = '2';
-									$usenet = fsockopen($ip, $port, &$errno, &$errstr, $timeout);
+									$usenet = fsockopen($ip, $port, $errno, $errstr, $timeout);
 									if(!$usenet) { 
 										next;
 									} else {

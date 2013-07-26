@@ -16,7 +16,7 @@
 				$port = $servercfg['port'];
 				$netconport = $servercfg['netconport'];
 				$netconpasswd = $servercfg['netconpasswd'];
-				$usenet = fsockopen($ip, $netconport, &$errno, &$errstr, $timeout);
+				$usenet = fsockopen($ip, $netconport, $errno, $errstr, $timeout);
 			if ($_GET['submit'] == "Shutdown ALL") {
 				// shutdown forks baby!
 				if(!$usenet) { 
@@ -48,7 +48,17 @@
 			mysql_query("UPDATE servers SET restartsend = 'optional', goingdown = 'yes', restartsend = 'emptyserver' WHERE serverid = '$serverid'") or die(mysql_error());
 			header("Location: servers.php");
 			die();
-        }
+        	}
+                if ($_GET['submit'] == "Restart HARD") {
+                        $serverid = $_GET['serverid'];
+                        $ipnr = $_GET['ip'];
+                        $port = $_GET['port'];
+                        mysql_query("UPDATE servers SET restartsend = 'yes' WHERE serverid = '$serverid'") or die(mysql_error());
+			$call = file_get_contents("http://$ipnr:4337/ssms?password=$server_connect&port=$port&ip=$ipnr");
+                        header("Location: servers.php");
+                        die();
+                }
+
 		
         if ($_GET['update'] == "yes") {
 		$serverid = $_GET['serverid'];
@@ -76,9 +86,12 @@
 	<b><? echo $servercfg['servername'];?></b><br/>
 	<? echo "IP: " . $servercfg['ip'] . ":" .$servercfg['port'] . "<br/><font size=+1 color=red> Currentplayers " . $servercfg['currentplayers'] . "/" . $servercfg['maxplayers'] . " Bots: " . $servercfg['currentbots'] . "</font><br/><br/>";?>
 	<input type="hidden" name="update" value="yes">
+	<input type="hidden" name="ip" value="<? echo $servercfg['ip'] ?>">
+	<input type="hidden" name="port" value="<? echo $servercfg['port'] ?>">
 	<input type="hidden" name="serverid" value="<? echo $_GET['serverid'];?>">
     <input type="submit" name="submit" id="submit" value="Restart NOW" />
 	<input type="submit" name="submit" id="submit" value="Restart when empty" />
+    <input type="submit" name="submit" id="submit" value="Restart HARD" />
 	<input type="button" value="Cancel" align="right" onclick="$( '#serverall' ).dialog('close');">
     </fieldset>
 <?
