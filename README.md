@@ -1,3 +1,5 @@
+Future development has stopped, a new project was created for this at: https://github.com/Ehesp/Sourcemod-Server-Manager-System
+
 SSMS - Sourcemod Server Management System
 =========================================
 
